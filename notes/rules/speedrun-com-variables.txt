@@ -1,0 +1,126 @@
+# Variable: Platform (e8m7em86)
+
+## N64 (9qj7z0oq)
+
+# N64 Rules
+
+Runs verified to the N64 subcategory are done on Nintendo 64 consoles with official carts.
+
+## Authenticity (full game only)
+
+- Everdrive/flash carts are banned
+- NTSC to PAL conversion is banned
+- Using modified ROMs or reproduction carts is banned
+
+## Retiming (full game only)
+
+For exact retiming of N64 runs, the first frame of the Super Mario 64 logo should appear at 1.33 seconds.
+
+## Controller Restrictions
+
+For console runs re-mapping of controller inputs/outputs is allowed, with the following restrictions:
+
+The re-mapping scheme at the beginning of the run must remain for the entirety of the run. That is, a runner using a controller that maps buttons to analog inputs (e.g. Boxx) must use a controller with that re-mapping scheme for the duration of the run. Swapping controllers to ones with the same re-mapping scheme (e.g. swapping from OEM N64 to Hori Mini Pad) is acceptable.
+
+There should be no overlap in mapping analog to analog inputs or analog to digital inputs. (You cannot map analog up to both a control stick and the “A” button.) Digital inputs can be mapped to multiple buttons as it does not provide a competitive advantage. (The hori has two Z buttons, but only one press is registered if both buttons are pressed simultaneously. This is acceptable.)
+
+Adapters and input displays are not allowed to give you more information than looking at an unmodified controller. This includes, but isn't limited to: exact input values, carpetless input display skins, or specific off-notch indicators.
+
+
+
+## VC (jq6540ol)
+
+# VC Rules
+
+Runs verified on the VC subcategory include the Wii VC, Wii U VC and Switch NSO releases of SM64.
+
+## Authenticity (full game only)
+
+- Official Wii VC versions are allowed.
+- Official Wii U VC versions are allowed.
+- Official Switch NSO releases are allowed.
+- Injecting unofficial versions such as JP 1.0 is banned.
+- Modified ROMs/WADs are banned
+
+Runs done on the 3d All Star version should be submitted to the leaderboards found on [Category Extensions](https://www.speedrun.com/sm64ce).
+
+## Retiming (full game only)
+
+For exact retiming of Wii U VC and Switch NSO runs, the first frame of the Super Mario 64 logo should appear at 1.33 seconds.
+
+For Wii VC timing starts on reset (the first frame the screen goes black before the classic controller text/mario logo) and ends when the big star is collected at the end of the game.
+
+## Controller Restrictions
+
+For console runs re-mapping of controller inputs/outputs is allowed, with the following restrictions:
+
+The re-mapping scheme at the beginning of the run must remain for the entirety of the run. That is, a runner using a controller that maps buttons to analog inputs (e.g. Boxx) must use a controller with that re-mapping scheme for the duration of the run. Swapping controllers to ones with the same re-mapping scheme (e.g. swapping from OEM N64 to Hori Mini Pad) is acceptable.
+
+There should be no overlap in mapping analog to analog inputs or analog to digital inputs. (You cannot map analog up to both a control stick and the “A” button.) Digital inputs can be mapped to multiple buttons as it does not provide a competitive advantage. (The hori has two Z buttons, but only one press is registered if both buttons are pressed simultaneously. This is acceptable.)
+
+Adapters and input displays are not allowed to give you more information than looking at an unmodified controller. This includes, but isn't limited to: exact input values, carpetless input display skins, or specific off-notch indicators.
+
+## EMU (5lmoxk01)
+
+# EMU Rules
+
+Runs verified to the EMU subcategory are done on unmodified ROMs using one of the allowed emulators.
+
+## Allowed Emulators
+
+The **only** allowed emulators are as follows:
+
+- Project64 v1.6.x [(Windows)]([https://wermi.neocities.org/emuguide/getting_emu/](https://wermi.neocities.org/emuguide/getting_emu/))
+- Rosalie's Mupen GUI v0.5.x+ [(Windows/Linux)]([https://github.com/Rosalie241/RMG/releases](https://github.com/Rosalie241/RMG/releases))
+- OpenEmu v2.x+ [(Mac)]([https://openemu.org/](https://openemu.org/))
+
+Any emulator & version not listed above is banned. Any ROM modifications or emulator settings that cause non-vanilla behavior are banned (e.g. widescreen). If using Rosalie's Mupen GUI or OpenEmu it is recommend to make a note in the run description when submitting your runs.
+
+**Caution:** The emulators listed above are ONLY recommended for speedrunning Super Mario 64, for which purpose they are safe and consistent in a way that allows for fair competition and easier moderation. However, you should be aware that vulnerabilities have been found in [Project 64 1.6](https://gist.github.com/aglab2/6bb351c4bd0ac6e13c931e03aa8f9949) and older versions of [mupen64plus-core](https://github.com/mupen64plus/mupen64plus-core/issues/1121) which allow malicious ROMs to execute arbitrary code. It is possible that other vulnerabilities could be found in the future, so for general use it is recommended to use an up-to-date emulator under active development (the latest version of RMG for example). If you only play unaltered ROMs of official N64 games this isn't a problem, but we would like users to be aware. You can check [your SM64 ROM here](https://brikr.github.io/is-my-rom-ok).
+
+## Required Settings
+
+Generally, you do not want to tweak emulator settings without good reason. Project 64 1.6 users should follow the emulator setup guide. For every emulator run, we inspect the reset, load times, save lag and emulated lag to ensure that it is consistent with properly configured build of one of the allowed emulators. If your settings don't seem to be consistent, or your video quality is too poor for us to check these things, your run may be rejected or we may reach out to try to determine the inconsistencies.
+
+The following are settings which are commonly misconfigured:
+
+- The **Counter Factor** setting should be set to 1 (Edit Game Settings > Rom Settings), by default this is set to 2. This removes all emulated lag from the game. This is a new rule as of March 22nd, 2022 (Project 64) and February 16th, 2024 (Rosalie's Mupen GUI), OpenEMU users see the note below this list.
+- The **Limit FPS** setting must be toggled (System > Limit FPS), this is on by default but you can accidentally toggle it off with F4 (which is next to F5, the load state hotkey).
+- The **Default Save type** setting should be left as "Use First Used Save Type" (Edit Game Settings > Rom Settings), this is the default setting. There is no reason to change this but it has become an increasingly common rejection reason.
+
+## 
+
+Note: If you are using OpenEmu, there is currently no way to remove emulated lag. You should mention usage of OpenEmu in your submission text to save us some time when verifying and avoid rejection.
+
+## Retiming (full game only)
+
+Timing starts from power on (loading the ROM) or reset (pressing F1) and ends when the big star is collected at the end of the game (the first frame that the star bursts into dust). You cannot use a savestate to restart a run, since any possible savestate would cut off the start of the run. To quickly clear your files in a way that won't invalidate your runs, savestate to a clean file and then press reset.
+
+For exact retiming of EMU runs, the first frame of the Super Mario 64 logo should appear at 1.33 seconds.
+# Variable: Codes (2lgy07lp)
+
+## No (5lmoovm1)
+
+(no rules)
+
+## Yes (jq655njl)
+
+(no rules)
+# Variable: Route (jlz62r78)
+
+## No LBLJ (q75kovp1)
+
+(no rules)
+
+## LBLJ (1gny6w6l)
+
+(no rules)
+# Variable: Verified (kn04ewol)
+
+## Yes (5q8e86rq)
+
+(no rules)
+
+## No (4qyxop3l)
+
+(no rules)

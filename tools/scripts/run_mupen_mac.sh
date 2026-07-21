@@ -1,21 +1,36 @@
 #!/usr/bin/env bash
-# Attempt to launch Mupen64 on macOS via Whisky/Wine if available.
+# Launch Mupen64 on macOS via Whisky (preferred) or Wine.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-MUPEN="$ROOT/tools/mupen64/repack-stable-main/stable/mupen64.exe"
+MUPEN_DIR="$ROOT/tools/mupen64/repack-stable-main/stable"
+MUPEN="$MUPEN_DIR/mupen64.exe"
+BOTTLE="${WHISKY_BOTTLE:-SM64-TAS}"
 
 if [[ ! -f "$MUPEN" ]]; then
   echo "Mupen not found. Run: ./tools/scripts/download_tools.sh"
   exit 1
 fi
 
-cd "$(dirname "$MUPEN")"
+# Stage ROM if present at repo root
+for c in "$ROOT/Super Mario 64 (USA).z64" "$ROOT/roms/Super Mario 64 (USA).z64" "$ROOT/roms/built/sm64.us.z64"; do
+  if [[ -f "$c" ]]; then
+    mkdir -p "$MUPEN_DIR/roms"
+    cp -f "$c" "$MUPEN_DIR/roms/Super Mario 64 (USA).z64"
+    break
+  fi
+done
 
 if command -v whisky >/dev/null 2>&1; then
-  echo "Launch via Whisky UI: add bottle and run $MUPEN"
+  if ! whisky list 2>/dev/null | grep -q "$BOTTLE"; then
+    echo "Creating Whisky bottle $BOTTLE ..."
+    whisky create "$BOTTLE"
+  fi
+  echo "Launching Mupen via Whisky bottle $BOTTLE ..."
+  exec whisky run "$BOTTLE" "$MUPEN" "$@"
 fi
 
+cd "$MUPEN_DIR"
 for wine in wine64 wine; do
   if command -v "$wine" >/dev/null 2>&1; then
     echo "Starting Mupen with $wine..."
@@ -24,26 +39,19 @@ for wine in wine64 wine; do
 done
 
 if [[ -d "/Applications/Whisky.app" ]]; then
-  echo "Whisky is installed. Open Whisky, create a Windows 10 bottle,"
-  echo "then run: $MUPEN"
+  echo "Whisky app present but CLI missing from PATH. Opening Whisky..."
   open -a Whisky
   exit 0
 fi
 
 cat <<EOF
-No Wine/Whisky found in PATH.
+No Whisky/Wine found.
 
-Mupen64-rr is a Windows TAS emulator. On Apple Silicon macOS, pick one:
+  brew install --cask whisky
+  whisky create SM64-TAS
+  ./tools/scripts/run_mupen_mac.sh
 
-  1) Install Whisky:  brew install --cask whisky
-  2) Install Wine:    brew install wine-stable   # if bottle available
-  3) Use Parallels/UTM Windows 11 ARM VM (most reliable for STROOP + Mupen)
-  4) Run on a Windows PC and sync this git repo
-
-Binary ready at:
-  $MUPEN
-
-For casual SM64 play (not .m64 TAS playback):
-  brew install --cask ares-emulator && open -a ares
+Binary: $MUPEN
+Casual play (not TAS): brew install --cask ares-emulator && open -a ares
 EOF
 exit 1

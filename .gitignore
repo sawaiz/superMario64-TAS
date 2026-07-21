@@ -1,10 +1,13 @@
 # === ROMs (never commit) ===
 roms/*
 !roms/README.md
+!roms/built/.gitkeep
 **/*.z64
 **/*.n64
 **/*.v64
 **/*.rom
+/Super Mario 64*.z64
+/Super Mario 64*.n64
 
 # === Large tool binaries (re-fetch via tools/scripts/) ===
 tools/mupen64/mupen64-repack-stable.zip
@@ -13,6 +16,12 @@ tools/STROOP/STROOP-vDev.zip
 tools/STROOP/net461/
 tools/STROOP/**/*.exe
 tools/STROOP/**/*.dll
+
+# === Decomp clones (huge; scripts re-clone) ===
+decomp/sm64/
+decomp/HackerSM64/
+decomp/kaze/
+!decomp/README.md
 
 # === Optional local emulator data ===
 **/savestates/
@@ -30,7 +39,12 @@ Thumbs.db
 *.swp
 *~
 
-# === Wine / runtime junk ===
+# === Wine / Whisky / runtime junk ===
 *.exe.log
 drive_c/
 *.reg
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/

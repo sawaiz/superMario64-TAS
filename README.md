@@ -1,8 +1,10 @@
 # Super Mario 64 TAS Workshop
 
-A local research workspace for **tool-assisted speedruns (TAS)** of *Super Mario 64*: community-standard emulator and diagnostics, published movies, historical IL archives, and study notes from **pannenkoek2012** and **Bismuth**.
+A local research workspace for **tool-assisted speedruns (TAS)** of *Super Mario 64*: community-standard emulator and diagnostics, published movies, historical IL archives, **n64decomp** source, and study notes from **pannenkoek2012**, **Bismuth**, and **Kaze Emanuar**.
 
-> **Legal:** No ROMs are included. Dump SM64 from a cartridge you own (or obtain an image you are legally allowed to use) and place it in the Mupen `roms/` folder. See [notes/emulators-and-tools.md](notes/emulators-and-tools.md).
+> **Console-first (hard rule):** the finished product must **play on a real Nintendo 64**. Mupen/Whisky are for authoring; retail ROM + hardware-accurate inputs are the target. See [notes/console-first.md](notes/console-first.md).
+>
+> **Legal:** ROMs are gitignored and never published. Use a dump from a cartridge you own. See [notes/emulators-and-tools.md](notes/emulators-and-tools.md).
 
 ---
 
@@ -10,20 +12,28 @@ A local research workspace for **tool-assisted speedruns (TAS)** of *Super Mario
 
 ```
 superMario64-TAS/
-├── README.md                 ← you are here
+├── README.md
 ├── notes/
 │   ├── pannenkoek2012.md     ← engine, ABC, PUs, collision
 │   ├── bismuth.md            ← WR explainers, any%/120 routing
+│   ├── kaze-emanuar.md       ← performance / engine rewrite analysis
+│   ├── console-first.md      ← real N64 is the acceptance target
+│   ├── rules-and-decomp.md   ← official rules + decomp TAS insights
+│   ├── rules/                ← downloaded TASVideos + SRC rule dumps
+│   ├── research/             ← PU/BLJ/squish research (console-safe)
 │   ├── emulators-and-tools.md
-│   └── tas-catalog.md        ← what’s in tas/
+│   └── tas-catalog.md
+├── decomp/
+│   ├── README.md
+│   ├── sm64/                 ← n64decomp/sm64 (matching rebuild)
+│   ├── HackerSM64/           ← romhack-oriented base
+│   └── kaze/                 ← Kaze demos & forks
 ├── tools/
-│   ├── mupen64/              ← Mupen64 stable repack (TAS emulator)
-│   ├── STROOP/               ← RAM observer / object processor
-│   └── scripts/              ← re-download helpers
-├── tas/
-│   ├── full-game/            ← TASVideos pubs (1-key, 16, 70, 120, trees)
-│   └── archive/SM64TASArchive/  ← community IL + full-game .m64 milestones
-└── roms/                     ← your ROM goes here (gitignored)
+│   ├── mupen64/              ← Mupen64-rr (TAS emulator)
+│   ├── STROOP/
+│   └── scripts/
+├── tas/                      ← movies & archive
+└── roms/                     ← baseroms / built ROMs (gitignored)
 ```
 
 ---
@@ -37,23 +47,51 @@ superMario64-TAS/
 ./tools/scripts/download_tases.sh   # TASVideos movies + SM64TASArchive
 ```
 
-### 2. Emulator: **Mupen64** (best for SM64 TAS)
+### 2. Emulator: **Mupen64** + **Whisky** (macOS validation)
 
 | | |
 |--|--|
 | **Why** | SM64 TAS community standard: `.m64` movies, rerecording, Lua, SM64 Lua Redux |
 | **Binary** | `tools/mupen64/repack-stable-main/stable/mupen64.exe` |
 | **Site** | https://mupen64.com/ |
-| **OS** | Windows native; on **macOS** use Wine / Whisky / Crossover / a Windows VM |
+| **macOS runner** | **Whisky** (`brew install --cask whisky`) — bottle `SM64-TAS` |
 
-1. Copy your ROM into `tools/mupen64/repack-stable-main/stable/roms/`.
-2. Run `mupen64.exe`.
-3. Load the game; optionally drag `SM64LuaRedux/src/SM64Lua.lua` onto the window.
-4. Play a movie from `tas/` (match **USA vs Japan** to the file).
+```bash
+# Stage ROM + open Whisky checklist / launch helpers
+./tools/scripts/setup_whisky_mupen.sh
 
-**STROOP** (Windows): extract is under `tools/STROOP/` — run `STROOP.exe`, attach to Mupen, watch Mario/objects/triangles.
+# Direct launch (bottle must exist)
+whisky run SM64-TAS "$(pwd)/tools/mupen64/repack-stable-main/stable/mupen64.exe"
+```
 
-**RTA note:** Mupen64-rr is for **TAS**, not automatically valid for **speedrun.com RTA**. See [notes/emulators-and-tools.md](notes/emulators-and-tools.md).
+1. Put USA ROM in `tools/mupen64/.../roms/` (setup script does this if ROM is at repo root).
+2. In Mupen, load the game; optionally drag `SM64LuaRedux/src/SM64Lua.lua` onto the window.
+3. Play a movie from `tas/` (**match region** — USA vs Japan).
+
+**STROOP** (Windows via Whisky): `tools/STROOP/net461/STROOP.exe` — attach to Mupen.
+
+**After Mupen syncs:** run the [console-safety checklist](notes/console-first.md#console-safety-checklist-every-full-movie) before treating a movie as finished. PU segments need fixed cam + no emu-only TRUNC abuse; prefer console lag over pure Mupen frame count.
+
+**RTA note:** Mupen64-rr is for **TAS**, not automatically valid for **speedrun.com RTA**.
+
+### 2b. Decompilation (n64decomp)
+
+```bash
+# Matching US rebuild (Docker/Colima on Apple Silicon — native mips brew fails on some macOS)
+./tools/scripts/build_decomp_docker.sh
+
+# Trees also present:
+#   decomp/sm64          ← https://github.com/n64decomp/sm64
+#   decomp/HackerSM64    ← romhack base
+#   decomp/kaze/         ← Kaze optimization demos
+```
+
+Expected rebuilt US ROM SHA1: `9bef1128717f958171a4afac3ed78ee2bb4e86ce`  
+USA baserom MD5: `20b854b239203baf6c961b850a4a51a2`
+
+Kaze performance analysis: [notes/kaze-emanuar.md](notes/kaze-emanuar.md) · decomp map: [decomp/README.md](decomp/README.md)  
+**Official rules (TASVideos + speedrun.com) + decomp vs TAS legality:** [notes/rules-and-decomp.md](notes/rules-and-decomp.md)  
+**High-value rules-safe research (PU/BLJ/squish/punch tools):** [notes/research/high-value-tas.md](notes/research/high-value-tas.md) · `tools/research/`
 
 ### 3. Study existing TASes
 
@@ -64,6 +102,7 @@ superMario64-TAS/
 | “Fair” multi-star tech | `tas/full-game/70-stars-no-blj/` |
 | Per-star WR files | `tas/archive/SM64TASArchive/Individual Levels/` |
 | Engine / ABC theory | [pannenkoek2012 notes](notes/pannenkoek2012.md) |
+| Engine performance / 60 FPS hacks | [Kaze Emanuar notes](notes/kaze-emanuar.md) |
 
 Full table: [notes/tas-catalog.md](notes/tas-catalog.md).
 
@@ -76,8 +115,13 @@ Full table: [notes/tas-catalog.md](notes/tas-catalog.md).
 | **Mupen64 stable repack** | [mupen64/repack-stable](https://github.com/mupen64/repack-stable) | `tools/mupen64/` |
 | **SM64 Lua Redux + sm64-viz** | Bundled in repack | `.../stable/SM64LuaRedux`, `sm64-viz` |
 | **STROOP (vDev)** | [SM64-TAS-ABC/STROOP](https://github.com/SM64-TAS-ABC/STROOP) | `tools/STROOP/` |
+| **Whisky** | Homebrew cask | `/Applications/Whisky.app` · bottle `SM64-TAS` |
+| **n64decomp/sm64** | [n64decomp/sm64](https://github.com/n64decomp/sm64) | `decomp/sm64/` |
+| **HackerSM64** | [HackerN64/HackerSM64](https://github.com/HackerN64/HackerSM64) | `decomp/HackerSM64/` |
+| **Kaze demos** | [KazeEmanuar](https://github.com/KazeEmanuar) | `decomp/kaze/` |
 | **TASVideos movies** | [tasvideos.org/246G](https://tasvideos.org/246G) | `tas/full-game/` |
 | **SM64 TAS Archive** | [TimeTravelPenguin/SM64TASArchive](https://github.com/TimeTravelPenguin/SM64TASArchive) | `tas/archive/SM64TASArchive/` |
+| **Colima + Docker** | Homebrew | decomp builds on Apple Silicon |
 
 Optional on macOS for casual N64 play (not TAS movies): `brew install --cask ares-emulator` (opens as **ares.app**).
 

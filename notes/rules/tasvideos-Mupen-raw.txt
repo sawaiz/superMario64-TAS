@@ -1,0 +1,65 @@
+EmulatorResources/Mupen - TASVideos 
+TASVideos 
+Tool-assisted game movies 
+When human skills are just not enough 
+Home 
+Games Games List Game Resources Platforms 
+
+Movies Publications User Files Movie Classes 
+
+Submissions Submission Workbench Submit a Movie 
+
+Tools BizHawk libTAS Emulator List 
+
+Forum 
+Chat Discord and IRC Other TAS Communities 
+
+Resources Articles FAQ How to TAS 
+
+About TASVideos Staff How to Help Site History 
+
+Dark Light Auto 
+
+Register 
+Log in 
+
+Emulator Resources 
+Mupen 
+
+Mupen64 is a Nintendo 64 emulator. The rerecording version is currently maintained by the Mupen64 Organization under the name mupen64-rr-lua. 
+Mupen was disallowed for submissions in 2017, but reallowed in 2022 . The AVI fixes have been merged into upstream as of version 1.1.1 . Older versions should not be used for submissions. 
+Links 
+Website: https://mupen64.com 
+Repository: https://github.com/mupen64/mupen64-rr-lua 
+Releases: https://github.com/mupen64/mupen64-rr-lua/releases 
+Downloads 
+The official Mupen64 repack - a bundle of Mupen64 and TAS-ready plugins - is available at https://mupen64.com/. 
+Downloads of Mupen64 binaries are available under the Mupen64 GitHub repository . 
+Versions of Mupen64 older than 1.0.5 (including 0.5!) are vulnerable to a savestate-based code execution exploit ("Queuecrush"), and should therefore not be used. 
+Old version archive Hide 
+Show 
+
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/LuaExtension_r34_bin.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/Mupen64 v8 installer.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/Mupen64 v8 reset v2.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/mupen64-r1-gcc4.6.2.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/mupen64-rr-master.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/mupen64-rrv8-avisplit-win32.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/mupen64_src-rerecording-v8-AVISplit.7z 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/TASInputPlugin0.6 dll.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/TASInputPlugin0.6 src.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/Deprecated/LuaExtension_r30_bin.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/Deprecated/LuaExtension_r31_bin.zip 
+http://files.tasvideos.org/emulatordownloads/mupen64-rr/Deprecated/LuaExtension_r32_bin.zip 
+
+Wiki 
+The Mupen64 Wiki, which contains user-facing and technical documentation can be found at https://mupen64.com . 
+Known issues 
+Mupen64 has various emulation, graphics, and timing inaccuracies. 
+Subpages for Emulator Resources / Mupen Expand/Collapse collapse-content-_484c51084d5240a79a21134a8a86dfda 
+
+M64 
+
+EmulatorResources/Mupen last edited by Aurumaker72 on 1/23/2026 7:50 AM Page History Latest diff List referrers View Source 
+© 2026 - TASVideos v2.6-f26e127 Terms API 
+

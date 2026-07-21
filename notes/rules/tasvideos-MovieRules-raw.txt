@@ -1,0 +1,249 @@
+MovieRules - TASVideos 
+
+Hello, and welcome to TASVideos! This page describes the rules and guidelines that submissions are judged by. (Intended for TAS authors; judges should see here .)
+These guidelines can and will change or become more clarified as the site continues to grow, particularly if and when we receive submissions that challenge them. To learn the latest changes, read the Movie Rules History . 
+An important thing to keep in mind is that most submissions will meet all of our requirements by default. This page is not meant to strictly list every rule that every submission must follow, it is meant to be used as a reference for users and staff to solve difficult situations and edge cases. We do not require or expect users to fully read and memorize this page before making submissions. 
+If you have any questions that this page does not answer, or if you are unsure about the presence or absence of a rule, ask a Judge on the forums or reach out to us on our Discord server . If you would like to suggest possible changes and updates to these rules, use this thread . 
+For more specific information on our accepted emulators and movie formats, see our Emulator Resources page . 
+Table of contents 
+Summary Before Starting... 
+When choosing a game... 
+When TASing... 
+When submitting... 
+
+Game Choice ROM Hacks 
+
+Goal Choice Standard 
+Alternative 
+Playground 
+Events 
+
+Gameplay must be accurate to hardware 
+Use the correct version of a game 
+The movie must be complete Alternate Endings 
+
+The movie must be technically sound Obsoletion 
+
+The movie must be properly attributed 
+System specific rules 
+
+Summary 
+This is a short summary of what we expect from submissions. 
+Before Starting... 
+Use an official release of an approved emulator . Use development, interim, and unofficial builds with caution. 
+The emulator's settings should match the settings of the console the game is intended to be running on as closely as possible. For example, you may not force a game to run at an unintended frame rate, such as running a 50Hz PAL game in 60Hz NTSC mode. 
+
+Your system BIOS must not be modified, and the region must match your chosen game. 
+When choosing a game... 
+Your ROM must be good. Always use perfect dumps [!] if possible. 
+Make sure your game and system are emulated well. You are not allowed to use techniques that are only possible due to emulation bugs. 
+Any regional release may be used, though 60hz NTSC is usually preferred over 50hz PAL. 
+Any release version or update patch of a game may be used, though you should be able to explain why you chose that version. 
+Adult games are not permitted for submission. For more information, see our adult game policy . 
+Games that break our site conduct policy are not permitted for submission. 
+When TASing... 
+Always record new movies from power-on or SaveRAM . Starting from an emulator savestate is normally not allowed. Movies that start from SaveRAM require a verification movie, provided with the submission. This verification movie does not need to be optimized, it just has to create the necessary SaveRAM. 
+Starting from a savestate is only allowed in special circumstances , and also requires a form of verification. 
+
+Level selects are not allowed. The game must start from the beginning. This does not apply to levels that can only be accessed by codes or menus. 
+This also does not apply in cases where the game doesn't start at all . 
+
+Speed-oriented movies must beat the game. If your game does not have an ending, it must reach a suitable alternative endpoint. Entertainment-oriented movies (i.e, "playarounds") are exempt from this. 
+
+Your TAS should not be easily improvable. It doesn't have to be absolutely perfect, but it should be clear that effort was put into optimization. 
+Your goal should be meaningful, but it doesn't have to be . 
+RAM/ROM modification, such as Game Genie and Action Replay, is not allowed for standard runs. 
+Regional differences such as text and cutscene length are not counted as improvements or time losses. Only directly comparable gameplay is counted. 
+When submitting... 
+Make sure your movie syncs from beginning to end before submitting. Judges and Publishers need a fully syncing movie in order to process it. 
+If any extra steps or settings are required for sync, they must be stated in your submission text. 
+Your movie should be your work. Plagiarism is not tolerated. You may submit someone else's movie on their behalf, but only with explicit proof of their permission. 
+
+Game Choice 
+Game choice for standard publications is limited to computer programs that meet our definition of a video game . Some programs will miss some of those traits, in which case we decide their acceptance based on a community consensus. If a program is not considered eligible for the standard class, it may still be acceptable for Alternative if its TAS is entertaining. 
+We allow unofficial games , such as bootlegs, prototypes and ROM hacks. However, these games are judged a bit stricter than their official counterparts: 
+Bootleg games must not be direct clones of a licensed game on the same console. Unlicensed ports with unique gameplay, such as demakes, are allowed. 
+Prototypes are only allowed if gameplay is significantly different to the release version, or if there is no release version at all. 
+TASVideos does not allow adult only content in any form on the site. This applies to games as well. For a full explanation, please read our Adult Game Policy page . 
+In keeping with our Site Rules for user conduct , we strictly disallow games that promote targeted harassment, violence, and bigotry towards specific individuals and/or groups. This generally only applies to unlicensed and homebrew games, though some older official releases may fall under this if the depicted content is graphic enough. 
+ROM Hacks 
+ROM hacks must not be overly obscure. If a hack is known to GoodTools , ROMhacking.net , SMW Central , or some other well-known database, that usually means its quality is decent and it won't be completely lost in the future. 
+There must be a publicly and readily available download link to the hack's patch file on the web. It should be easily found through Google. Having to join an online community (for example on Discord) to get the file is not allowed. For obscure hacks that are not well known but really well done, ask a judge if it can be accepted . 
+
+Fan translations are generally not allowed, though exceptions may be made if asked about ahead of time . 
+Cosmetic hacks are not allowed by themselves. 
+Hacks that transform the game, especially new/changed levels, are preferred. 
+External codes are treated as ROM hacks if modifications are severe enough. 
+Goal Choice 
+Movies are initially published to one of three classes : Standard, Alternative, or Events. 
+Standard 
+Standard class houses a majority of the movies on the site. It contains speedrun records with common, objective goals. Goal choice should be as objective as possible. Below is a list of currently accepted separate branches. This list is still growing and will be expanded in the future. 
+Completion Percentage : We allow up to three branches based on how much of the game they complete (not limited to games that count percentage explicitly). If one of those branches is identical to another, then the allowed count is naturally lower. 
+Manipulating in-game completion statistics directly through heavy glitching or memory/save corruption is not allowed. Only actual gameplay events that constitute completion are counted for goals that maximize or minimize it. Fastest Completion (often called "any%"): Completing a game in the fastest time possible. Arbitrary Code Execution (ACE) is only allowed in Standard as an any% speedrun, and must be used to its fullest extent. 
+
+Full Completion: Completing all content in a game in the fastest time possible. This is generally considered the "100%" category, but it is not limited to that. Categories such as "all levels" or "best ending" are also acceptable forms of full completion if the game has no other definition. 
+Lowest Completion: Completing minimal amount of content in a game in the fastest time possible. 
+
+No Major Skips: Completing a game in the fastest time possible without skipping major portions of content. The definition of a major skip varies from game to game, but is generally defined as an unintended skip of otherwise unavoidable gameplay. 
+
+Savegame : Runs that start from SaveRAM and carry data over from previous playthroughs, are allowed as separate branches for every standard goal. "Savegame" is only Standard eligible if using unlockables is more optimal than avoiding them. 
+
+Multiplayer: For games where you can control several character at once, up to 3 branches are allowed: Minimum players (usually 1) 
+Maximum players (usually 2) 
+Some other player count if it's faster than both of the above 
+
+Difficulty : For games with several difficulty settings, we allow up to 3 branches to co-exist: Easiest difficulty 
+Hardest difficulty 
+Any other setting if it's faster than both of the above or it's default 
+
+Score Attack: Aiming for maximum score while otherwise completing the game as fast as possible. Infinite scoring loops that delay completion are not allowed. 
+Rules on glitch usage for this category are the same as for "Full Completion" (see above). 
+
+In-Game Codes : In-game codes that add gameplay are allowed for a separate branch, as long as such codes are used optimally as a combination. Codes that modify or disable in-game mechanics are not allowed, unless they unlock an in-game item or a skill that does that. 
+Glitchless : Completing the game as fast as possible while avoiding all known glitches (defined per game in accordance with the community). If some technique feels like a glitch and causes questions, it's best to avoid it. If you think you have a good reason to use it anyway, ask a Judge . 
+
+Individual game modes (level sets, episodes, etc.), including those unlocked using in-game codes, are also acceptable as separate branches. These can also include different playable characters if their gameplay is significantly different. 
+We allow up to two separate fastest completion branches for fighting games: If the fastest character in the game is an unlockable character that requires SaveRAM, we also allow a separate branch for the fastest character available from a fresh file. 
+For games that have a second quest or loop, you are allowed to play only the first quest. The second quest is only required to be included if gameplay is significantly different. 
+If a game's second quest is just a harder difficulty mode, it is allowed by itself. 
+In-game codes that access harder difficulties and/or bonus content, including cosmetic improvements, are allowed for all branches. 
+Arcade continues are treated like in-game codes. 
+Runs that optimize In-Game Time (IGT) are only allowed in Standard if they contain faster gameplay than a real-time focused run. 
+For example, Sonic the Hedgehog TASes optimize for IGT because optimizing for real time involves long waits to minimize the score counter 
+Alternative 
+Alternative is a class that holds a variety of unique, nonstandard goals, similar to SRC's "category extensions". 
+Alternative runs that aim for speed are lightly curated: While there are no outright entertainment requirements, the chosen goal must still be clear, concise, objective, and non-arbitrary. Good examples include restrictive challenge runs that completely change how the game is played or goals that should be impossible under normal conditions. You generally won't have to worry about this, unless you're specifically trying to game the system. "Playarounds" are still curated by entertainment, as that is the goal they're aiming for. 
+Choose a unique and interesting goal that results in significantly different gameplay to other publications. Don't try and game the system to get a "free publication". 
+
+ACE is freely allowed in playarounds, though the spirit of the original game should be maintained, and copyright should not be infringed. Fair use applies here. 
+You may use external codes if they unlock gameplay or content in the game that in-game codes can't access. Submission notes are required to describe the in-game effects of any external codes and why they are chosen to be used; failure to explain the codes' use may result in rejection of the submission. 
+
+Depending on publication overload, Alternative runs may not be immediately encoded and uploaded to the TASVideos YouTube channel, though they will still be published on the site using a temporary encode until they are able to be officially encoded. 
+Playground 
+Playground is an "anything goes" class , meant to hold a wide variety of TASes that don't fit in any other class, usually by not following these movie rules. While Playground goals can theoretically be anything that isn't standard, Alternative, or an Event, keep in mind that we have Userfiles for uploading any run you want without restrictions. A Playground run should still be something worth showcasing even though it may not be publishable. 
+Please note that these submissions will not be published, as the wide scope of what's allowable will overwork our Publishers and most likely flood our YouTube channel. These runs will still receive prominent placement on the site's game pages . 
+Requirements for Playground runs are as follows: 
+The run must be reasonably optimized. Standards are not as high as they are for publications, but we still expect effort to be put into optimization. There should be no obviously visible sloppy play throughout the movie. 
+
+All necessary requirements for sync must be provided. You must provide an input file supported by the site. 
+Runs that use cheats or Lua scripts must provide said cheats or Lua scripts. 
+Runs that start from an in-game save file (SRAM) or an emulator savestate must provide recreation instructions, ideally in the form of a verification file 
+Runs made on unofficial emulator builds (i.e non-release or modified) must provide reliable links to those builds. For modified builds, the modifications must be documented and clear. Contact Staff for help with this if needed. 
+
+The movie must be properly attributed . 
+Events 
+Event runs are special runs that were created for live events such as Games Done Quick. These runs are not otherwise acceptable on TASVideos due to technical limitations, such as requiring multiple pieces of hardware or live input at the event itself. 
+Event runs are technical showcases or transformative displays of published runs that would otherwise be unpublishable as they are. If an event run can be published as a standard or Alternative run, it will be published there instead. 
+If the run is a transformative showcase of a published run, i.e heavily edited or shown in a medium unique to the event, it qualifies as an Event run. 
+
+Event runs can be submitted by anyone, but all parties involved with the presentation must be properly attributed and any objections raised at any time must be taken into account. 
+Live events that showcase multiple runs must be split by run and submitted individually so they can be properly categorized. 
+A video of the event must be provided, and it must allow rehosting. 
+An input file is required for submission, though it does not have to accurately reflect the run. A dummy input file that matches the game and console is best. 
+
+The event itself must have some degree of common sense notability. Once again, don't try to game the system for a free publication. 
+
+Gameplay must be accurate to hardware 
+Make sure you use a perfect [!] ROM if it is available. If not, use the best available ROM. Do not use [b] , [h] , or [t] ROMs at all, as they may introduce glitches not found in the actual game. If a game is not emulated well at all, it may not be accepted until it's emulated without significant glitches [ 1 ] . Providing hash checksums is recommended to help Judges and Publishers process your submission. Do not ask where to find ROMs, or provide links to ROMs! 
+Outside modification of a game or a system BIOS is not allowed. If modification is the only way of being able to TAS your game, ask a Judge if it can be allowed . In such cases, a full set of reproduction steps for the modification must be provided with the submission. 
+Modifications that make the game deterministic in an offline environment are allowed. 
+Any kind of DRM circumvention is strictly banned. 
+If some files have to be added to the game to make it TASable, there should be a free legal way to get or create those files, or there should be a different game they could be taken from (that game does not have to be free). 
+Some emulators such as BizHawk allow you to set a custom initial RAM state: This is only allowed if that RAM state is proven to be possible on console . 
+You are not allowed to run a console game in an unintended environment, including modifying emulator settings for unintended speed advantages. 
+Backwards compatibility modes, such as running Game Boy games in Game Boy Advance mode, are allowed if a physical console (or the game) supports it, unless there significant glitches [ 1 ] . 
+For computer games, environment settings explicitly supported by the game or its documentation are allowed. 
+If a setting is not mentioned in any way, it's allowed if it doesn't cause significant glitches [ 1 ] . 
+If a system allows poking game memory on the fly, it's only allowed to do according to the official documentation of a given game, or to fix a fatal bug that makes completion impossible. Such a modification must be explained in the submission description. 
+Converting a game image from one format to another is only allowed if it's supported on the device meant to run that game, and the game itself remains unchanged. 
+Running 50Hz PAL games in 60Hz NTSC mode (and vice versa) is also not allowed, save for a couple exceptions: 
+Commodore 64 games may not work correctly in NTSC mode. PAL mode should be used in these cases. 
+For games released in PAL Asia for Famiclones such as the Dendy , you can use either NTSC or a specific Dendy/Hybrid option. 
+Sega Master System games with an official release in Brazil can use NTSC mode, due to Brazil's PAL-M being functionally identical to NTSC. 
+For disc systems, you may only use discs belonging to your game, and they may only be swapped when the game prompts you to. You are not allowed to arbitrarily swap discs at any other time. 
+Console verification is not required for a submission, however your gameplay should match console behavior as much as possible anyway. Glitches and in-game behaviors that are known to be the result of emulation bugs are not allowed, and must be avoided. In cases where a movie is published with a known emulator bug, a slower movie that avoids that bug will obsolete it. 
+Use the correct version of a game 
+Any official release of a game is allowed as long as you can explain your choice, and as long as that version is easily available for verification. 
+Older versions of a game are allowed in order to exploit a glitch patched out in later versions. 
+NTSC is usually preferred over PAL, though using a PAL version of the game is allowed in some situations: 
+There are version exclusive changes to a PAL release that warrant its usage 
+Games for handheld consoles (like GameBoy) 
+Games that run in PAL60 mode (like on GameCube) 
+The original hardware allows it (see the above section on hardware accuracy) 
+Regional differences such as text and cutscene length are completely discounted when considering improvements. Only actual gameplay is considered to be an improvement. If your movie has 600 fewer frames solely due to version differences, your total improvement must be more than 600 frames. This also means you can use a "slower" version that ends up generating a longer input file, as long as pure comparable gameplay is improved. 
+You are allowed to use Virtual Console (VC) or other similar emulation environments for TASes. Extracting ROMs from VC or other environments is also allowed if they are fully playable in their extracted form with little to no audio/visual bugs, though in most cases the original console ROM is preferred. An extracted ROM is preferred if it is the only official release of a game, or if it provides unique features not in the original release, such as different gameplay or new game modes. 
+Demo versions and episodic games are allowed for submission. A TAS of a demo version will be obsoleted by a TAS of its full release, unless there's significant gameplay difference that warrants having separate publications. If an episodic game is eventually released with all episodes in one executable, a TAS of all episodes will obsolete individual episode TASes. 
+When applicable, DRM-free versions of games are always preferred. Games with DRM must be deterministic in an offline environment in order to be accepted. 
+The movie must be complete 
+Your submission must begin from power-on or SaveRAM . Starting from an emulator savestate is only allowed if it is the only way your run can be started . 
+Submissions that start from SaveRAM or savestate require a verification movie, which must be provided along with the submission. The verification movie must start from power-on and not be save-anchored itself. It should create the exact SaveRAM or savestate that's used in the submission. 
+The verification movie is not judged for time or optimization. It does not have to be TASed and can be as long as it needs to be. Any published run or previous verification movie can be used as well. 
+
+If your submission requires a different form of verification, please contact a Judge . 
+Your submission must play the game from the beginning, and must finish the game, or reach the most suitable endpoint the game allows. Level selects, single-level movies, or otherwise incomplete movies are not allowed. Examples of suitable endpoints are: 
+A definitive ending, such as a credits sequence. 
+A kill screen , assuming it is impossible to complete even when TASed. 
+If there's no clear ending, end after completing the first full game loop. However you may play further and end after any of the following: All unique content (enemies, level layouts, game mechanics, etc.) is exhausted and completed. 
+The loop with the hardest in-game difficulty (enemy speed, AI, etc.) is completed. 
+In games with a score counter, you may end when you reach the maximum score the game allows. 
+
+For non-standard goals, in addition to any of the above, the movie can also be ended at some logical or artistic stopping point that makes sense for the given goal, as opposed to objective game ending. Examples include - but are not limited to - hard crashes, game overs, and save-quitting. 
+If game completion after achieving the goal doesn't change the nature of the goal and only requires minimal extra work, then game completion is preferred (but not required). 
+
+TAS timing begins at power-on and ends on the final necessary input. If you're unsure exactly when to end input, submit it as-is and staff will truncate it for you. For games with post-credits input or high score screens, you are not required to include those inputs in your submission, though it is preferred you do so. The final input should always automatically lead to the game's completion, though you can make a stylistic choice as to where it ends: 
+You can end input as early as possible , letting the game play itself out to completion no matter how long it takes 
+Or you can end input when it's not possible to complete the game any faster with additional input 
+Alternate Endings 
+In addition to a clearly defined ending, a game may have other possible endpoints. These include, but are not limited to: 
+Bad Endings: These are generally achieved through in-game choices, and happen in place of the game's normal ending. Examples: [4500] SNES SOS by Samsara in 04:34.08 and [3507] SNES Clock Tower by ruadath in 01:53.46 
+
+Early Endings: Similar to bad endings in that they're achieved by not completing goals, but they happen strictly before the actual ending of the game, implying or outright stating that there is more to play. Example: #6933: DaSmileKat's NES Extra Mario Bros. "bad ending" in 05:24.35 
+
+Secret Endings: Endings that are achieved from completing special conditions, and are always separate from the game's actual ending. Examples: [2940] Genesis Contra: Hard Corps "secret ending" by Soig in 04:57.42 and #8439: Mikewillplays's GBA Metroid: Desolation "Runaway Ending" in 00:13.34 
+
+As a general rule, we treat these endings on a case-by-case basis. Some of them are considered standard-eligible, while others may need to qualify for Alternative in order to be published. If you're unsure, you can always ask a Judge. 
+The movie must be technically sound 
+Your submission must be reproducible. Judges and Publishers will attempt to verify that your input file syncs on an officially released build of an accepted emulator . Newest releases are highly preferred as they usually have the most accurate emulation. If your run fails to sync on an official release, it cannot be verified, and thus cannot be accepted. Anything that could affect sync, such as emulator settings or config options, must be stated in the submission text to help us verify your submission. Use development/interim builds at your own risk, as input files created on them may not sync even on the next official release. 
+Dolphin's Beta and Development builds are allowed, though make sure to configure it properly . 
+If you're aiming for speed, your submission must match or beat all known records. Check places such as YouTube , NicoVideo , and Speedrun.com for speedruns, as well as the Games section of the forums and our site Userfiles . Improvements that are found and publicized after submission will not count against the submission's quality. However if a faster full run is made and submitted before the initial submission is accepted, the slower submission may be rejected in favor of the faster one. 
+Emulation differences and inaccuracies are not counted when determining whether a run beats all known records. You are allowed to be slower than a record if it is impossible for you to beat it due to the emulated environment. 
+Your submission does not have to be absolutely perfect and unimprovable, but it should be as optimized as you can make it. Judges will check your movie's technical quality: they should not be able to easily improve your movie by large amounts of time. All techniques known prior to beginning a run should be used. If you discover a new improvement or technique during the making of your run, you should at least attempt to implement it in any previously done section, though this is not required if the entire run would need to be redone. Make sure to mention known improvements in your submission text as well. 
+Your entertainment choices should not make the movie unwatchable. Avoid sickening camera angles, flashing lights, and spamming annoying sounds if you can. 
+See the TASing Guide for how to make a high quality TAS, and the Guidelines specifically. 
+Obsoletion 
+Obsoletion of published movies is determined by an improvement of the stated goal. Examples: 
+Fastest completion movies are obsoleted by time. 
+Playarounds are obsoleted by improved entertainment. 
+Esoteric goals can be obsoleted by better completion of the goal, i.e "low%" can be obsoleted by a movie that obtains a lower completion percentage. 
+A movie with a later endpoint can obsolete a movie with an earlier endpoint, if they have the same goal and all content overlaps between the two. This includes single levels or difficulties being obsoleted by full game runs . 
+
+Standard goals remain separate regardless of possible overlap, unless their movies are fully identical. Alternative goals may obsolete one another upon consensus, if there's clutter and redundancy. 
+Improvements must be in gameplay to warrant obsoletion. You should not be losing gameplay time compared to the published run: If you find a new timesave that's 30 seconds faster, your movie should be at least 30 seconds faster, unless there is unavoidable time loss as a result. Any time saved or lost from version differences and/or emulation accuracy is considered unavoidable, and is discounted. Your improvement movie may even be longer than the published run, but it is still considered an improvement if it improves upon gameplay. 
+Our rules have changed significantly over the years, and so we have published runs that break the rules as they currently stand. The current site rules always takes precedence for an improvement, even if the currently published movie breaks them. 
+Use the most accurate emulator available and a good ROM of the game, even if the published movie does not. 
+Glitches that specifically rely on poor emulation must be avoided, even (and especially) if the published movie uses them. 
+The movie must be properly attributed 
+All submissions must be properly attributed to their authors. If you are submitting another author's run on their behalf, they must be properly credited, and you must receive their explicit permission first. Any user found to be plagiarizing their submissions will be banned indefinitely, and may not be allowed to submit at all if they do return. 
+The guidelines for co-authorship are intentionally flexible and based on common sense and courtesy. 
+Anyone who directly provides input to an input file should be credited unless they specifically choose not to be. 
+If you are improving a published run, you are only required to credit the previous author if you directly copy their artistic choices (i.e., playaround segments and other actions designed to entertain rather than save time), or if you are directly working off of their input file. Copying time-saving strategies is unavoidable, and does not warrant credit by itself. 
+For multi-author submissions, the order of authors is entirely cosmetic. 
+Above all else, respect the wishes of authors. If someone does not wish to be credited as a co-author, their decision is final. If someone believes they should be co-authored for actively working on a submission, they most likely should be. 
+All submissions are distributed under the Creative Commons Attribution 2.0 license . 
+System specific rules 
+For running DSi games in BizHawk 
+For all libTAS movies MAME inside libTAS 
+Neko Project II inside libTAS 
+PCem inside libTAS 
+PICO-8 inside libTAS 
+Ruffle inside libTAS 
+
+[ 1 ] For the purposes of Movie Rules we define significant glitches as audio, video, and/or gameplay-affecting glitches apparent to people unfamiliar with the game. 
+Subpages for Movie Rules Expand/Collapse collapse-content-_e982e6ad1261430580f83bdb28413758 
+
+Adult Game Policy 
+History 
+
+MovieRules last edited by feos 11 days ago Page History Latest diff List referrers View Source 
+© 2026 - TASVideos v2.6-f26e127 Terms API 
+

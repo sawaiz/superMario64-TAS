@@ -1,0 +1,110 @@
+## Stage RTA (zdnq4oqd, type=per-level)
+
+# General Rules (updated 10/16/2023)
+
+The goal of Stage RTA is to collect all 7 stars within a given stage (the 6 named stars on the star select screen and the 100 coin star). Stage RTA generally follows the same rules as those listed under the main Game Rules with the addition of the following:
+
+- You must start your run from the star select menu on the relevant stage (e.g. starting from level reset is not allowed).
+- Prepared files are allowed as long as the game state is doable without codes. For example, you may want to open cannons and clear initial stage texts.
+- Usamune/Everdrive/Gameshark are allowed, but certain codes are banned (see below for specifics). If you use one of these methods for gameplay, please set the Codes field to 'Yes' when submitting.
+
+# Timing
+
+Timing starts on star select and ends after grabbing the 7th star of the stage. For exact retiming, the first fade frame is 0.06 on the timer. If using Usamune, the first frame the Stage RTA timer says START is 0.03. Timing ends on the first frame of stardust upon grabbing the final star.
+
+#  Video
+
+All submitted Stage RTA videos must be reasonably trimmed down to the actual attempt to make it easier to find for both the verifier and the viewer. For example, full 120 star runs with just a timestamp will not be accepted on this leaderboard.
+
+# Allowed Codes
+
+If using the latest Usamune (latest version: v1.93 as of this writing), it is strongly recommended to use the Stage RTA preset (MENU > MISC > PRESET > STGRTA). If you choose to use your own settings or only have a Gameshark, the following codes are allowed:
+
+- Star Select (RESET > LBUTTON/LxR > SSLECT)
+- Manual Timer + Star-Grab/X-Cam Timer (TIMER > STOP/DISPLAY > GRAB/XCAM)
+- Real Time Timer (TIMER > REALTMR)
+- Make Timer Display Centiseconds (only relevant to Gameshark)
+- Lag Frame Counter (HUD > LIFE > LAG or HUD > STAR > LAG)
+- Display Lag Frame Counter as Life Count (only relevant to Gameshark)
+- Automatically Reset Timer at Star Select (only relevant to Gameshark)
+- Automatically Reset Counter at Star Select (only relevant to Gameshark)
+- Modifying the Timer Coordinates (TIMER > TMRPOSI > LEFT)
+- Setting the starting mission (RESET > DEFMISS)
+- Stars always yellow (MISC > *COLOR > YELLOW)
+
+# Banned Codes/Settings
+
+The following settings/codes are banned and using them will result in your run being rejected. In Usamune, these should be set to "OFF" or changed to an appropriate value:
+
+- Always Display Timer (TIMER > DISPLAY > ALWAYS)
+- Fade Timer (TIMER > FADETMR)
+- Section Timer (TIMER > SECTMR)
+- Misc Timer (MISCT > MISCTMR)
+- Level Reset/Entry (RESET > LBUTTON/LxR > LRESET/LENTRY )
+- Attempt Counter (RESET > ATTEMPT)
+- Savestates (RESET > SSTATES)
+- All HUD modifications except for LAG display (HUD > *)
+- Memory viewer (HUD > MEMORY)
+- Automatic Menu (MISC > IGMENU)
+- No Music (MISC > MUSIC)
+- Nonstop (MISC > NSTOP)
+- All of these settings under the 'STAGE' tab in Usamune must be set to 'NORMAL': CCMPENG, DDDSUB, DDDMANT, JRBMIST, STGTXT, STARTXT
+- Any codes that change vanilla visuals/colors (e.g. Mario color swaps), and any other modifications to the Usamune ROM
+
+Generally, any codes which display the timer before grabbing the star, or display information which can be used to your advantage (speed display, wall-kick frames, dust frames, input values, etc.) are banned. Using codes which are not listed as explicitly allowed or banned here may result in your run being rejected. It is strongly recommended to use the Usamune preset.
+
+## 120 Star (wkpoo02r, type=per-game)
+
+# 120 Star Rules
+
+Beat the game while collecting all 120 stars with the following restrictions:
+
+## 
+
+## Gameplay Restrictions:
+
+- None
+
+## 70 Star (7dgrrxk4, type=per-game)
+
+# 70 Star Rules
+
+Beat the game as quickly as possible with the following restrictions:
+
+## Gameplay Restrictions:
+
+- All forms of [BLJ](https://ukikipedia.net/wiki/Backwards_Long_Jump) are banned
+- All forms of [MIPS clipping](https://ukikipedia.net/wiki/RTA_Guide/MIPS_Clip) are banned
+- Circumventing any castle door or star requirement via any other method is banned
+
+## 16 Star (n2y55mko, type=per-game)
+
+# 16 Star Rules
+
+Beat the game as quickly as possible with the following restrictions:
+
+## Gameplay Restrictions:
+
+- All forms of [Side BLJ](https://ukikipedia.net/wiki/Backwards_Long_Jump#Side_BLJ) are banned
+- Any method to skip the 30 star door other than [MIPS Clip](https://ukikipedia.net/wiki/RTA_Guide/MIPS_Clip) is banned
+
+## 1 Star (7kjpp4k3, type=per-game)
+
+# 1 Star Rules
+
+Beat the game as quickly as possible with the following restrictions:
+
+## Gameplay Restrictions:
+
+- DDD skip is banned
+
+## 0 Star (xk9gg6d0, type=per-game)
+
+# 0 Star Rules
+
+Beat the game as quickly as possible
+
+## Gameplay Restrictions:
+
+- Cannot collect any stars
+
