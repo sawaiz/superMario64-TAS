@@ -1,0 +1,36 @@
+# === ROMs (never commit) ===
+roms/*
+!roms/README.md
+**/*.z64
+**/*.n64
+**/*.v64
+**/*.rom
+
+# === Large tool binaries (re-fetch via tools/scripts/) ===
+tools/mupen64/mupen64-repack-stable.zip
+tools/mupen64/repack-stable-main/
+tools/STROOP/STROOP-vDev.zip
+tools/STROOP/net461/
+tools/STROOP/**/*.exe
+tools/STROOP/**/*.dll
+
+# === Optional local emulator data ===
+**/savestates/
+**/Save/
+**/Mempak/
+**/screenshots/
+*.st
+!tas/archive/**/*.st
+
+# === OS / IDE ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# === Wine / runtime junk ===
+*.exe.log
+drive_c/
+*.reg
