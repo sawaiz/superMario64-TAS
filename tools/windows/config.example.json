@@ -1,0 +1,15 @@
+{
+  "repo_root": null,
+  "mupen_dir": "tools/mupen64/repack-stable-main/stable",
+  "mupen_exe": "mupen64.exe",
+  "rom_us": "roms/Super Mario 64 (USA).z64",
+  "rom_jp": "roms/Super Mario 64 (Japan).z64",
+  "logs_dir": "logs",
+  "harness_lua": "tools/research/harness/tas_harness.lua",
+  "default_region": "us",
+  "notes": {
+    "rom_us_md5": "20b854b239203baf6c961b850a4a51a2",
+    "rom_jp_md5": "85d61f5525af708c9f1e84dce6dc10e9",
+    "console_first": "Movies must be console-safe; Mupen is for authoring/automation only."
+  }
+}

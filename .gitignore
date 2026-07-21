@@ -48,3 +48,9 @@ drive_c/
 __pycache__/
 *.py[cod]
 *.egg-info/
+
+# Windows local config & harness logs
+tools/windows/config.local.json
+tools/research/harness/harness_config.lua
+logs/
+*.log

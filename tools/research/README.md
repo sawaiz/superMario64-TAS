@@ -21,15 +21,22 @@ Findings write-up: `../../notes/research/high-value-tas.md`
 ## Experiment verification
 
 ```bash
-python3 verify_experiment.py tiers
-python3 verify_experiment.py formula blj --start -20 --jumps 6
-python3 verify_experiment.py formula pu --x 40000 --z 0 --speed 262144
-python3 verify_experiment.py m64 ../../tas/full-game/1-key/*.m64
-python3 verify_experiment.py play --movie ../../tas/full-game/from-archive/120-stars-01h20m41s52ms-U.m64 --launch
+python verify_experiment.py tiers
+python verify_experiment.py formula blj --start -20 --jumps 6
+python check_log.py ../../logs/run_us_....csv --require-frames 100
 ```
 
-| Tier | What | Automated here? |
-|------|------|-----------------|
-| A | Decomp formula sims | Yes |
-| B | Mupen GUI movie play | Launch + you watch |
-| C | Real N64 | Hardware / TASbot |
+### Windows in-emu harness
+
+```text
+tools/research/harness/tas_harness.lua   # drag onto Mupen after ROM load
+tools/research/harness/harness_config.example.lua
+```
+
+Full Windows loop: [../../notes/windows-setup.md](../../notes/windows-setup.md)
+
+| Tier | What | Automated? |
+|------|------|------------|
+| A | Formula sims | Yes (`*.py`) |
+| B | Mupen + Lua CSV log | Harness + manual ROM/movie |
+| C | Real N64 | Hardware |

@@ -18,6 +18,7 @@ superMario64-TAS/
 │   ├── bismuth.md            ← WR explainers, any%/120 routing
 │   ├── kaze-emanuar.md       ← performance / engine rewrite analysis
 │   ├── console-first.md      ← real N64 is the acceptance target
+│   ├── windows-setup.md      ← Windows full automation loop
 │   ├── rules-and-decomp.md   ← official rules + decomp TAS insights
 │   ├── rules/                ← downloaded TASVideos + SRC rule dumps
 │   ├── research/             ← PU/BLJ/squish research (console-safe)
@@ -29,8 +30,10 @@ superMario64-TAS/
 │   ├── HackerSM64/           ← romhack-oriented base
 │   └── kaze/                 ← Kaze demos & forks
 ├── tools/
+│   ├── windows/              ← setup.ps1, run_mupen.ps1, run_loop.ps1
 │   ├── mupen64/              ← Mupen64-rr (TAS emulator)
 │   ├── STROOP/
+│   ├── research/             ← formula sims + Lua harness
 │   └── scripts/
 ├── tas/                      ← movies & archive
 └── roms/                     ← baseroms / built ROMs (gitignored)
@@ -40,39 +43,44 @@ superMario64-TAS/
 
 ## Quick start
 
-### 1. Tools (already downloaded if you used the setup that created this tree)
+### Windows (primary — full experiment loop)
+
+```powershell
+git clone git@github.com:sawaiz/superMario64-TAS.git
+cd superMario64-TAS
+powershell -ExecutionPolicy Bypass -File tools\windows\setup.ps1
+# Place legal ROMs in roms\  (never commit)
+powershell -File tools\windows\run_mupen.ps1
+```
+
+Full loop (Mupen + Lua harness + log check): **[notes/windows-setup.md](notes/windows-setup.md)**  
+Scripts: `tools/windows/setup.ps1`, `run_mupen.ps1`, `run_loop.ps1`  
+Harness: `tools/research/harness/tas_harness.lua`
+
+### macOS (optional authoring only)
 
 ```bash
 ./tools/scripts/download_tools.sh   # Mupen64 repack + STROOP
 ./tools/scripts/download_tases.sh   # TASVideos movies + SM64TASArchive
 ```
 
-### 2. Emulator: **Mupen64** + **Whisky** (macOS validation)
+### Emulator: **Mupen64** (Windows native)
 
 | | |
 |--|--|
-| **Why** | SM64 TAS community standard: `.m64` movies, rerecording, Lua, SM64 Lua Redux |
+| **Why** | SM64 TAS community standard: `.m64`, rerecording, Lua |
 | **Binary** | `tools/mupen64/repack-stable-main/stable/mupen64.exe` |
 | **Site** | https://mupen64.com/ |
-| **macOS runner** | **Whisky** (`brew install --cask whisky`) — bottle `SM64-TAS` |
+| **Windows** | `tools\windows\run_mupen.ps1` after `setup.ps1` |
 
-```bash
-# Stage ROM + open Whisky checklist / launch helpers
-./tools/scripts/setup_whisky_mupen.sh
+**Loop:** load ROM → drag `tools/research/harness/tas_harness.lua` → play `.m64` → `run_loop.ps1 -CheckOnly`  
+Details: [notes/windows-setup.md](notes/windows-setup.md)
 
-# Direct launch (bottle must exist)
-whisky run SM64-TAS "$(pwd)/tools/mupen64/repack-stable-main/stable/mupen64.exe"
-```
+**STROOP:** `tools\STROOP\net461\STROOP.exe` — attach to Mupen.
 
-1. Put USA ROM in `tools/mupen64/.../roms/` (setup script does this if ROM is at repo root).
-2. In Mupen, load the game; optionally drag `SM64LuaRedux/src/SM64Lua.lua` onto the window.
-3. Play a movie from `tas/` (**match region** — USA vs Japan).
+**Console-first:** [console-safety checklist](notes/console-first.md) before claiming a finished movie.
 
-**STROOP** (Windows via Whisky): `tools/STROOP/net461/STROOP.exe` — attach to Mupen.
-
-**After Mupen syncs:** run the [console-safety checklist](notes/console-first.md#console-safety-checklist-every-full-movie) before treating a movie as finished. PU segments need fixed cam + no emu-only TRUNC abuse; prefer console lag over pure Mupen frame count.
-
-**RTA note:** Mupen64-rr is for **TAS**, not automatically valid for **speedrun.com RTA**.
+**RTA note:** Mupen64-rr is for **TAS**, not speedrun.com RTA EMU.
 
 ### 2b. Decompilation (n64decomp)
 
