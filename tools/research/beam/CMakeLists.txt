@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.20)
+project(wkw_beam_sim LANGUAGES CXX)
+
+add_executable(wkw_beam_sim wkw_beam_sim.cpp)
+target_compile_features(wkw_beam_sim PRIVATE cxx_std_20)
+if(MSVC)
+  target_compile_options(wkw_beam_sim PRIVATE /O2 /W4)
+else()
+  target_compile_options(wkw_beam_sim PRIVATE -O3 -Wall -Wextra -Wpedantic)
+endif()

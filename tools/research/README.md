@@ -14,6 +14,8 @@ Python 3, stdlib only. Constants taken from **n64decomp/sm64** matching sources.
 | `wkw_landing_search.py` | Layered WKW landing-recovery search on the first early-touch seed |
 | `wkw_touch_search.py` | Coarse/fine analog grid and deterministic winner verification |
 | `wkw_approach_search.py` | WKW launch, window-interaction, and earlier-kick recovery search |
+| `wkw_beam_search.py` | Build/run the C++ state-aware beam and validate its shortlist in Mupen |
+| `beam/wkw_beam_sim.cpp` | Differential SM64 input/air-physics beam-search engine |
 | `plot_approach_results.py` | Rebuild the approach-search summary, interaction map, and route timeline |
 | `plot_speedup_results.py` | Rebuild experiment graphs from result JSON |
 | `squish_scan.md` | Squish cancel conditions checklist |
@@ -42,6 +44,7 @@ python wkw_touch_search.py --refine-only
 python wkw_approach_search.py
 python wkw_approach_search.py --interaction-only
 python wkw_approach_search.py --kick-recovery-only
+python wkw_beam_search.py --beam-width 5000 --shortlist 24 --validate 24
 python plot_approach_results.py
 python plot_speedup_results.py
 ```

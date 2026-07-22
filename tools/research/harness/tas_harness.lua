@@ -56,7 +56,16 @@ local ADDR = {
     h_speed = 0x8033B1C4,
     v_speed = 0x8033B1BC,
     action = 0x8033B17C,
+    action_state = 0x8033B188,
+    action_timer = 0x8033B18A,
+    intended_mag = 0x8033B190,
+    intended_yaw = 0x8033B194,
     facing_yaw = 0x8033B19E,
+    wall = 0x8033B1D0,
+    floor = 0x8033B1D8,
+    ceil_height = 0x8033B1DC,
+    floor_height = 0x8033B1E0,
+    camera_yaw = 0x8033C714,
     global_timer = 0x8032D5D4,
   },
   jp = {
@@ -66,7 +75,16 @@ local ADDR = {
     h_speed = 0x80339E54,
     v_speed = 0x80339E4C,
     action = 0x80339E0C,
+    action_state = 0x80339E18,
+    action_timer = 0x80339E1A,
+    intended_mag = 0x80339E20,
+    intended_yaw = 0x80339E24,
     facing_yaw = 0x80339E2E,
+    wall = 0x80339E60,
+    floor = 0x80339E68,
+    ceil_height = 0x80339E6C,
+    floor_height = 0x80339E70,
+    camera_yaw = 0x8033B3A4,
     global_timer = 0x8032C694,
   },
 }
@@ -80,6 +98,10 @@ if region ~= "us" and region ~= "jp" then
   region = "us"
 end
 local A = ADDR[region]
+
+local goal_x = tonumber(os.getenv("SM64_TAS_GOAL_X") or "")
+local goal_y = tonumber(os.getenv("SM64_TAS_GOAL_Y") or "")
+local goal_z = tonumber(os.getenv("SM64_TAS_GOAL_Z") or "")
 
 local screenshot_dir = os.getenv("SM64_TAS_SCREENSHOT_DIR")
 local screenshot_actions = {}
@@ -127,7 +149,7 @@ if not file then
   return
 end
 
-file:write("input_frame,sample,vi,global_timer,action,h_speed,v_speed,x,y,z,facing_yaw\n")
+file:write("input_frame,sample,vi,global_timer,action,action_state,action_timer,h_speed,v_speed,x,y,z,facing_yaw,intended_mag,intended_yaw,camera_yaw,floor_height,ceil_height,floor_nx,floor_ny,floor_nz,wall_nx,wall_ny,wall_nz,goal_distance\n")
 file:flush()
 
 local meta = io.open(meta_path, "w")
@@ -158,6 +180,18 @@ local function read_s16(addr)
   return memory.readwordsigned(addr)
 end
 
+local function read_u16(addr)
+  return memory.readword(addr)
+end
+
+local function surface_normal(pointer_addr)
+  local pointer = read_u32(pointer_addr)
+  if pointer == 0 then
+    return 0.0, 0.0, 0.0
+  end
+  return read_f32(pointer + 0x1C), read_f32(pointer + 0x20), read_f32(pointer + 0x24)
+end
+
 local function on_input()
   if stopped then
     return
@@ -176,6 +210,20 @@ local function on_input()
     local y = read_f32(A.y)
     local z = read_f32(A.z)
     local yaw = read_s16(A.facing_yaw)
+    local intended_mag = read_f32(A.intended_mag)
+    local intended_yaw = read_s16(A.intended_yaw)
+    local camera_yaw = read_s16(A.camera_yaw)
+    local floor_height = read_f32(A.floor_height)
+    local ceil_height = read_f32(A.ceil_height)
+    local floor_nx, floor_ny, floor_nz = surface_normal(A.floor)
+    local wall_nx, wall_ny, wall_nz = surface_normal(A.wall)
+    local goal_distance = -1.0
+    if goal_x and goal_y and goal_z then
+      local dx = x - goal_x
+      local dy = y - goal_y
+      local dz = z - goal_z
+      goal_distance = math.sqrt(dx * dx + dy * dy + dz * dz)
+    end
     local gt = read_u32(A.global_timer)
     local sample = emu.samplecount()
     local vi = emu.framecount()
@@ -187,18 +235,32 @@ local function on_input()
       screenshot_taken[action] = true
     end
     return string.format(
-      "%d,%d,%d,%u,%u,%.6f,%.6f,%.6f,%.6f,%.6f,%d\n",
+      "%d,%d,%d,%u,%u,%u,%u,%.6f,%.6f,%.6f,%.6f,%.6f,%d,%.6f,%d,%d,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f,%.6f\n",
       input_n,
       sample,
       vi,
       gt,
       action,
+      read_u16(A.action_state),
+      read_u16(A.action_timer),
       h,
       v,
       x,
       y,
       z,
-      yaw
+      yaw,
+      intended_mag,
+      intended_yaw,
+      camera_yaw,
+      floor_height,
+      ceil_height,
+      floor_nx,
+      floor_ny,
+      floor_nz,
+      wall_nx,
+      wall_ny,
+      wall_nz,
+      goal_distance
     )
   end)
 
