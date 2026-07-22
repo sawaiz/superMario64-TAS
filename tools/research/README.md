@@ -8,6 +8,9 @@ Python 3, stdlib only. Constants taken from **n64decomp/sm64** matching sources.
 | `pu_nav.py` | Parallel universe / QPU lattice |
 | `air_physics.py` | Airborne + BLJ speed envelopes |
 | `wall_punch.py` | Punch probe + 1 Key clock-punch table |
+| `speedup_search.py` | CLI Mupen search over selected one-sample deletions |
+| `speedup_retime.py` | CLI Mupen search over final-approach input retiming |
+| `plot_speedup_results.py` | Rebuild experiment graphs from result JSON |
 | `squish_scan.md` | Squish cancel conditions checklist |
 
 ```bash
@@ -24,6 +27,9 @@ Findings write-up: `../../notes/research/high-value-tas.md`
 python verify_experiment.py tiers
 python verify_experiment.py formula blj --start -20 --jumps 6
 python check_log.py ../../logs/run_us_....csv --require-frames 100
+python speedup_search.py
+python speedup_retime.py
+python plot_speedup_results.py
 ```
 
 ### Windows in-emu harness

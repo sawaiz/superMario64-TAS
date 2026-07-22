@@ -82,7 +82,10 @@ $candidates = @(
 foreach ($c in $candidates) {
   if (Test-Path $c) {
     Copy-Item $c (Join-Path $mupenRoms "Super Mario 64 (USA).z64") -Force
-    Copy-Item $c (Join-Path $Root "roms\Super Mario 64 (USA).z64") -Force
+    $repoRom = Join-Path $Root "roms\Super Mario 64 (USA).z64"
+    if ([IO.Path]::GetFullPath($c) -ne [IO.Path]::GetFullPath($repoRom)) {
+      Copy-Item $c $repoRom -Force
+    }
     Write-Host "==> Staged USA ROM into roms\ and Mupen roms\"
     break
   }
@@ -98,7 +101,7 @@ if (-not (Test-Path $stroopExe)) {
     Expand-Archive -Path $szip -DestinationPath (Join-Path $Root "tools\STROOP") -Force
     Write-Host "    STROOP extracted"
   } catch {
-    Write-Warning "STROOP download failed: $_ (optional — install later)"
+    Write-Warning "STROOP download failed: $_ (optional - install later)"
   }
 } else {
   Write-Host "==> STROOP already present"
@@ -131,5 +134,6 @@ Write-Host "   JP  MD5: 85d61f5525af708c9f1e84dce6dc10e9"
 Write-Host "2. Start Mupen:  powershell -File tools\windows\run_mupen.ps1"
 Write-Host "3. Read:         notes\windows-setup.md"
 Write-Host "4. Full loop:    notes\windows-setup.md  (harness + check_log)"
+Write-Host "5. Smoke test:   powershell -File tools\windows\smoke_test.ps1"
 Write-Host ""
 Write-Host "Console-first: Mupen automation is for experiments; real N64 is acceptance."

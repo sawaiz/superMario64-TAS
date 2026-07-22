@@ -8,6 +8,7 @@ roms/*
 **/*.rom
 /Super Mario 64*.z64
 /Super Mario 64*.n64
+/Super Mario 64*.zip
 
 # === Large tool binaries (re-fetch via tools/scripts/) ===
 tools/mupen64/mupen64-repack-stable.zip
@@ -50,7 +51,9 @@ __pycache__/
 *.egg-info/
 
 # Windows local config & harness logs
+downloads/
 tools/windows/config.local.json
 tools/research/harness/harness_config.lua
 logs/
 *.log
+experiments/**/candidates/

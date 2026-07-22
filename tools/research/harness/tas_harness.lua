@@ -108,7 +108,7 @@ if not file then
   return
 end
 
-file:write("input_frame,sample,global_timer,action,h_speed,v_speed,x,y,z,facing_yaw\n")
+file:write("input_frame,sample,vi,global_timer,action,h_speed,v_speed,x,y,z,facing_yaw\n")
 file:flush()
 
 local meta = io.open(meta_path, "w")
@@ -159,10 +159,12 @@ local function on_input()
     local yaw = read_s16(A.facing_yaw)
     local gt = read_u32(A.global_timer)
     local sample = emu.samplecount()
+    local vi = emu.framecount()
     return string.format(
-      "%d,%d,%u,%u,%.6f,%.6f,%.6f,%.6f,%.6f,%d\n",
+      "%d,%d,%d,%u,%u,%.6f,%.6f,%.6f,%.6f,%.6f,%d\n",
       input_n,
       sample,
+      vi,
       gt,
       action,
       h,

@@ -20,6 +20,9 @@ import argparse
 import math
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 from constants import PUNCH_CONNECT_RADIUS, PUNCH_PROBE_DIST
 
 

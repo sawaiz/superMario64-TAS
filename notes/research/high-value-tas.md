@@ -19,6 +19,14 @@ python3 air_physics.py longjump --speed -30
 python3 wall_punch.py clock-table
 ```
 
+## Completed experiment: WKW one-frame search
+
+A code-only Mupen search tested 20 one-sample deletion and input-retiming
+variants around the 6.10 s Wall Kicks Will Work movie. No candidate beat the
+baseline star-completion VI; see
+[wall-kicks-speedup-experiment.md](wall-kicks-speedup-experiment.md) for the
+method, graphs, raw results, and reproduction commands.
+
 ---
 
 ## 1. Parallel Universes — exact lattice

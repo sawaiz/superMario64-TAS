@@ -21,6 +21,9 @@ import argparse
 import math
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 from constants import (
     LEVEL_BOUNDARY_MAX,
     PU_SIZE,

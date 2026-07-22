@@ -17,6 +17,9 @@ import argparse
 import math
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 from constants import (
     AIR_ACCEL_FACTOR,
     AIR_APPROACH_ZERO,
