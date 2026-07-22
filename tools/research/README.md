@@ -10,6 +10,7 @@ Python 3, stdlib only. Constants taken from **n64decomp/sm64** matching sources.
 | `wall_punch.py` | Punch probe + 1 Key clock-punch table |
 | `speedup_search.py` | CLI Mupen search over selected one-sample deletions |
 | `speedup_retime.py` | CLI Mupen search over final-approach input retiming |
+| `wkw_next_search.py` | Expanded WKW route, textbox, air-control, and final-approach search |
 | `plot_speedup_results.py` | Rebuild experiment graphs from result JSON |
 | `squish_scan.md` | Squish cancel conditions checklist |
 
@@ -29,6 +30,8 @@ python verify_experiment.py formula blj --start -20 --jumps 6
 python check_log.py ../../logs/run_us_....csv --require-frames 100
 python speedup_search.py
 python speedup_retime.py
+python wkw_next_search.py --stages route textbox air final
+python wkw_next_search.py --stages verify --verify-runs 3
 python plot_speedup_results.py
 ```
 

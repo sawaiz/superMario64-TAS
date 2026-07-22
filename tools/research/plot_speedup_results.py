@@ -11,6 +11,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.patches import FancyBboxPatch
 
 ROOT = Path(__file__).resolve().parents[2]
 EXPERIMENTS = [
@@ -133,9 +134,128 @@ def plot_experiment(source: Path, destination: Path, title: str, label_key: str)
     print(destination)
 
 
+def plot_next_search() -> None:
+    source = ROOT / "experiments/wall_kicks_next_search/results.json"
+    output = source.parent
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    baseline = payload["baseline"]
+    candidates = payload["candidates"]
+    stages = ("route", "textbox", "air", "final")
+    stage_colors = {
+        "route": "#7c3aed",
+        "textbox": "#0284c7",
+        "air": "#16a34a",
+        "final": "#ea580c",
+    }
+
+    plt.style.use("seaborn-v0_8-whitegrid")
+    figure, (timing, outcomes) = plt.subplots(
+        2, 1, figsize=(14, 8), gridspec_kw={"height_ratios": [3, 2]}
+    )
+    figure.suptitle(
+        "Wall Kicks Will Work: automated search results",
+        fontsize=18,
+        fontweight="bold",
+    )
+    timing.axhline(
+        baseline["star_touch_vi"], color="#111827", linestyle="--", linewidth=1.5,
+        label=f"baseline touch: VI {baseline['star_touch_vi']}",
+    )
+    for index, candidate in enumerate(candidates):
+        vi = candidate.get("star_touch_vi")
+        if vi is None:
+            timing.scatter(index, 542, marker="x", color="#dc2626", s=38)
+        else:
+            timing.scatter(
+                index, vi, color=stage_colors[candidate["stage"]], s=45,
+                edgecolor="white", linewidth=.5,
+            )
+    timing.set_ylim(536.5, 543)
+    timing.set_ylabel("Star-touch video interrupt (VI)\nlower is earlier")
+    timing.set_xticks([])
+    timing.legend(loc="lower left")
+    timing.text(
+        .99, .08, "8 air-control variants touch at VI 538 (2 VI earlier)",
+        transform=timing.transAxes, ha="right", color="#166534", fontweight="bold",
+    )
+    timing.text(
+        .99, .92, "red × = star not reached", transform=timing.transAxes,
+        ha="right", va="top", color="#b91c1c",
+    )
+
+    categories = ("potential speedup", "tie: no VI saved", "rejected: star not reached")
+    category_colors = ("#16a34a", "#2563eb", "#dc2626")
+    bottoms = [0] * len(stages)
+    for category, color in zip(categories, category_colors):
+        values = [
+            sum(c["stage"] == stage and c["result"] == category for c in candidates)
+            for stage in stages
+        ]
+        outcomes.bar(stages, values, bottom=bottoms, color=color, label=category)
+        for index, (value, bottom) in enumerate(zip(values, bottoms)):
+            if value:
+                outcomes.text(index, bottom + value / 2, str(value), ha="center", va="center",
+                              color="white", fontweight="bold")
+        bottoms = [bottom + value for bottom, value in zip(bottoms, values)]
+    outcomes.set_ylabel("Candidates")
+    outcomes.set_xlabel("Search family")
+    outcomes.legend(ncol=3, loc="upper center", bbox_to_anchor=(.5, -0.17))
+    figure.text(
+        .5, .012,
+        "Touch improved from VI 540 to 538; the same candidates exit the star sequence at VI 548 instead of 546.",
+        ha="center", fontsize=10, color="#374151",
+    )
+    figure.tight_layout(rect=(0, .06, 1, .94))
+    figure.savefig(output / "results.png", dpi=180, bbox_inches="tight")
+    plt.close(figure)
+
+    best = next(c for c in candidates if c["candidate"] == "air_full_x100_y-128")
+    figure, axis = plt.subplots(figsize=(13, 6.5))
+    axis.set_xlim(0, 13)
+    axis.set_ylim(0, 7)
+    axis.axis("off")
+    figure.patch.set_facecolor("#0b1020")
+    axis.set_facecolor("#0b1020")
+    axis.text(.4, 6.55, "EMULATOR TELEMETRY SNAPSHOT", color="#93c5fd", fontsize=11,
+              fontweight="bold")
+    axis.text(.4, 6.08, "One tiny stick change reaches the star one game update earlier",
+              color="white", fontsize=20, fontweight="bold")
+
+    def card(x: float, title: str, data: dict, accent: str) -> None:
+        axis.add_patch(FancyBboxPatch(
+            (x, 1.15), 5.85, 4.35, boxstyle="round,pad=0.16,rounding_size=.12",
+            facecolor="#151d31", edgecolor=accent, linewidth=2,
+        ))
+        axis.text(x + .3, 5.05, title, color=accent, fontsize=16, fontweight="bold")
+        lines = [
+            ("First walking", f"sample {data['first_walking_sample']}  ·  VI {data['first_walking_vi']}"),
+            ("Jump", f"sample {data['first_jump_sample']}  ·  VI {data['first_jump_vi']}"),
+            ("Star touch", f"sample {data['star_touch_sample']}  ·  VI {data['star_touch_vi']}"),
+            ("Star-sequence exit", f"sample {data['star_exit_sample']}  ·  VI {data['star_exit_vi']}"),
+            ("Parity hash", data['parity_hash']),
+        ]
+        y = 4.47
+        for label, value in lines:
+            axis.text(x + .3, y, label.upper(), color="#94a3b8", fontsize=9)
+            axis.text(x + 2.25, y, value, color="white", fontsize=11, fontfamily="monospace")
+            y -= .7
+
+    card(.4, "Baseline  (stick 98, −128)", baseline, "#60a5fa")
+    card(6.75, "Candidate  (stick 100, −128)", best, "#4ade80")
+    axis.text(.4, .55,
+              "Result: touch −2 VI / −1 input sample  •  exit +2 VI / +1 input sample  •  verified 3/3 identical",
+              color="#e2e8f0", fontsize=12, fontweight="bold")
+    figure.savefig(output / "telemetry-snapshot.png", dpi=180, bbox_inches="tight",
+                   facecolor=figure.get_facecolor())
+    plt.close(figure)
+    print(output / "results.png")
+    print(output / "telemetry-snapshot.png")
+
+
 def main() -> int:
     for source, destination, title, label_key in EXPERIMENTS:
         plot_experiment(source, destination, title, label_key)
+    plot_next_search()
     return 0
 
 

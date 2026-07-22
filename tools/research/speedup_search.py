@@ -13,6 +13,7 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 import re
 import shutil
 import struct
@@ -44,6 +45,7 @@ CANDIDATE_DIR = OUTPUT_DIR / "candidates"
 HEADER_SIZE = 0x400
 LENGTH_SAMPLES_OFFSET = 0x18
 STAR_ACTION = 0x00001302
+FALL_AFTER_STAR_GRAB_ACTION = 0x00001904
 USA_MD5 = "20b854b239203baf6c961b850a4a51a2"
 FINAL_HASH_RE = re.compile(r"Final hash: ([0-9a-f]+) \(([0-9]+) checkpoints\)")
 
@@ -67,10 +69,10 @@ def final_hashes() -> list[tuple[str, int]]:
     return [(match.group(1), int(match.group(2))) for match in FINAL_HASH_RE.finditer(text)]
 
 
-def newest_csv_after(started: float) -> Path:
+def newest_csv_after(started: float, region: str = "us") -> Path:
     candidates = [
         path
-        for path in LOG_DIR.glob("run_us_*.csv")
+        for path in LOG_DIR.glob(f"run_{region}_*.csv")
         if path.stat().st_mtime >= started - 1
     ]
     if not candidates:
@@ -83,29 +85,60 @@ def analyze_csv(path: Path) -> dict:
         rows = list(csv.DictReader(handle))
     if not rows:
         raise RuntimeError(f"empty CSV: {path}")
-    star_rows = [row for row in rows if int(row["action"]) == STAR_ACTION]
-    first_star = star_rows[0] if star_rows else None
+    touch_rows = [
+        row
+        for row in rows
+        if int(row["action"]) in (FALL_AFTER_STAR_GRAB_ACTION, STAR_ACTION)
+    ]
+    exit_rows = [row for row in rows if int(row["action"]) == STAR_ACTION]
+    first_touch = touch_rows[0] if touch_rows else None
+    first_exit = exit_rows[0] if exit_rows else None
+    first_actions = {}
+    for name, action in {
+        "walking": 0x04000440,
+        "jump": 0x03000880,
+        "jump_kick": 0x018008AC,
+    }.items():
+        row = next((item for item in rows if int(item["action"]) == action), None)
+        first_actions[f"first_{name}_sample"] = int(row["sample"]) if row else None
+        first_actions[f"first_{name}_vi"] = int(row["vi"]) if row else None
     return {
         "csv": str(path),
         "rows": len(rows),
-        "reached_star": first_star is not None,
-        "star_sample": int(first_star["sample"]) if first_star else None,
-        "star_vi": int(first_star["vi"]) if first_star else None,
-        "star_global_timer": int(first_star["global_timer"]) if first_star else None,
+        "reached_star": first_touch is not None,
+        "star_touch_sample": int(first_touch["sample"]) if first_touch else None,
+        "star_touch_vi": int(first_touch["vi"]) if first_touch else None,
+        "star_touch_action": int(first_touch["action"]) if first_touch else None,
+        "star_exit_sample": int(first_exit["sample"]) if first_exit else None,
+        "star_exit_vi": int(first_exit["vi"]) if first_exit else None,
+        # Backward-compatible names used by the first two searches and plots.
+        "star_sample": int(first_exit["sample"]) if first_exit else None,
+        "star_vi": int(first_exit["vi"]) if first_exit else None,
+        "star_global_timer": int(first_touch["global_timer"]) if first_touch else None,
         "end_action": int(rows[-1]["action"]),
         "end_x": float(rows[-1]["x"]),
         "end_y": float(rows[-1]["y"]),
         "end_z": float(rows[-1]["z"]),
+        **first_actions,
     }
 
 
-def run_movie(movie: Path, timeout: float) -> dict:
+def run_movie(
+    movie: Path,
+    timeout: float,
+    *,
+    rom: Path = ROM,
+    region: str = "us",
+    screenshot_dir: Path | None = None,
+    screenshot_actions: tuple[int, ...] = (),
+    show_window: bool = False,
+) -> dict:
     baseline_hash_count = len(final_hashes())
     started = time.time()
     command = [
         str(MUPEN),
         "--rom",
-        str(ROM),
+        str(rom),
         "--movie",
         str(movie),
         "--lua",
@@ -115,10 +148,24 @@ def run_movie(movie: Path, timeout: float) -> dict:
         "10",
         "--close-on-movie-end",
     ]
-    startupinfo = subprocess.STARTUPINFO()
-    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-    startupinfo.wShowWindow = subprocess.SW_HIDE
-    process = subprocess.Popen(command, cwd=MUPEN_DIR, startupinfo=startupinfo)
+    startupinfo = None
+    if not show_window:
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = subprocess.SW_HIDE
+    environment = dict(os.environ)
+    environment["SM64_TAS_REGION"] = region
+    if screenshot_dir is not None:
+        environment["SM64_TAS_SCREENSHOT_DIR"] = str(screenshot_dir)
+        environment["SM64_TAS_SCREENSHOT_ACTIONS"] = ",".join(
+            str(action) for action in screenshot_actions
+        )
+    process = subprocess.Popen(
+        command,
+        cwd=MUPEN_DIR,
+        startupinfo=startupinfo,
+        env=environment,
+    )
     parity: tuple[str, int] | None = None
     try:
         deadline = time.monotonic() + timeout
@@ -132,12 +179,12 @@ def run_movie(movie: Path, timeout: float) -> dict:
             time.sleep(0.1)
         if parity is None:
             raise TimeoutError(f"no new parity hash within {timeout:g}s")
-        time.sleep(0.75)
+        time.sleep(0.25)
     finally:
         if process.poll() is None:
             process.kill()
         process.wait(timeout=5)
-    result = analyze_csv(newest_csv_after(started))
+    result = analyze_csv(newest_csv_after(started, region))
     result["parity_hash"] = parity[0] if parity else None
     result["parity_checkpoints"] = parity[1] if parity else None
     return result

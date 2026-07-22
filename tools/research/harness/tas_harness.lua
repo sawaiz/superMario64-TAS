@@ -72,10 +72,26 @@ local ADDR = {
 }
 
 local region = (cfg.region or "us"):lower()
+local env_region = os.getenv("SM64_TAS_REGION")
+if env_region and env_region ~= "" then
+  region = env_region:lower()
+end
 if region ~= "us" and region ~= "jp" then
   region = "us"
 end
 local A = ADDR[region]
+
+local screenshot_dir = os.getenv("SM64_TAS_SCREENSHOT_DIR")
+local screenshot_actions = {}
+local screenshot_taken = {}
+local pending_screenshot = nil
+local screenshot_action_text = os.getenv("SM64_TAS_SCREENSHOT_ACTIONS") or ""
+for token in screenshot_action_text:gmatch("[^,]+") do
+  local value = tonumber(token)
+  if value then
+    screenshot_actions[value] = true
+  end
+end
 
 local function log_dir()
   if cfg.log_dir and cfg.log_dir ~= "" then
@@ -97,6 +113,9 @@ end
 
 local LDIR = log_dir()
 ensure_dir(LDIR)
+if screenshot_dir and screenshot_dir ~= "" then
+  ensure_dir(screenshot_dir)
+end
 
 local stamp = os.date("%Y%m%d_%H%M%S")
 local log_path = LDIR .. "run_" .. region .. "_" .. stamp .. ".csv"
@@ -160,6 +179,13 @@ local function on_input()
     local gt = read_u32(A.global_timer)
     local sample = emu.samplecount()
     local vi = emu.framecount()
+    if screenshot_dir and screenshot_dir ~= "" and screenshot_actions[action]
+        and not screenshot_taken[action] then
+      -- atinput fires before the frame is rendered. Defer the capture to
+      -- atupdatescreen so the image contains the completed video frame.
+      pending_screenshot = action
+      screenshot_taken[action] = true
+    end
     return string.format(
       "%d,%d,%d,%u,%u,%.6f,%.6f,%.6f,%.6f,%.6f,%d\n",
       input_n,
@@ -195,6 +221,13 @@ local function on_input()
   end
 end
 
+local function on_update_screen()
+  if pending_screenshot and screenshot_dir and screenshot_dir ~= "" then
+    emu.screenshot(screenshot_dir)
+    pending_screenshot = nil
+  end
+end
+
 local function on_stop_movie()
   if file then
     file:flush()
@@ -212,6 +245,7 @@ local function on_stop()
 end
 
 emu.atinput(on_input)
+emu.atupdatescreen(on_update_screen)
 emu.atstopmovie(on_stop_movie)
 emu.atstop(on_stop)
 
