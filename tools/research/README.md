@@ -13,6 +13,8 @@ Python 3, stdlib only. Constants taken from **n64decomp/sm64** matching sources.
 | `wkw_next_search.py` | Expanded WKW route, textbox, air-control, and final-approach search |
 | `wkw_landing_search.py` | Layered WKW landing-recovery search on the first early-touch seed |
 | `wkw_touch_search.py` | Coarse/fine analog grid and deterministic winner verification |
+| `wkw_approach_search.py` | WKW launch, window-interaction, and earlier-kick recovery search |
+| `plot_approach_results.py` | Rebuild the approach-search summary, interaction map, and route timeline |
 | `plot_speedup_results.py` | Rebuild experiment graphs from result JSON |
 | `squish_scan.md` | Squish cancel conditions checklist |
 
@@ -37,6 +39,10 @@ python wkw_next_search.py --stages verify --verify-runs 3
 python wkw_landing_search.py
 python wkw_touch_search.py
 python wkw_touch_search.py --refine-only
+python wkw_approach_search.py
+python wkw_approach_search.py --interaction-only
+python wkw_approach_search.py --kick-recovery-only
+python plot_approach_results.py
 python plot_speedup_results.py
 ```
 

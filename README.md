@@ -8,12 +8,18 @@ It is a laboratory for tool-assisted speedrunning: the game and ROM are not
 modified, and every promising emulator result still needs verification on a
 real Nintendo 64.
 
-The Wall Kicks Will Work search has now tested **465 automated candidates**.
+The Wall Kicks Will Work search has now tested **766 automated candidates**.
 The best setting changes the stick from `(98, -128)` to `(94, -104)` during
 samples 149-201. Mario touches the star **one game update earlier**—sample 224 /
 VI 538 instead of sample 225 / VI 540—while still reaching the grounded exit at
 baseline VI 546. Three verification replays were identical. This is a potential
 **one-frame / roughly 33 ms IL save**, pending real-console verification.
+
+The latest 301-candidate approach search found no second frame, but narrowed the
+equivalent steering window to samples 156-201 and ruled out simple one-sample
+kick/jump retiming. See the [visual experiment report](experiments/wall_kicks_approach_search/README.md).
+
+![Latest WKW approach-search outcomes](experiments/wall_kicks_approach_search/outcome-summary.png)
 
 ![Refined WKW candidate search](experiments/wall_kicks_touch_search/results.png)
 
