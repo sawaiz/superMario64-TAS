@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from pathlib import Path
 
 import matplotlib
@@ -252,10 +253,123 @@ def plot_next_search() -> None:
     print(output / "telemetry-snapshot.png")
 
 
+def plot_touch_search() -> None:
+    source = ROOT / "experiments/wall_kicks_touch_search/results.json"
+    output = source.parent
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    candidates = payload["candidates"] + payload.get("refined_candidates", [])
+    baseline = payload["baseline"]
+    best = next(c for c in candidates if c["candidate"] == payload["verified_candidate"])
+    pattern = re.compile(r"grid_x(-?\d+)_y(-?\d+)")
+
+    figure, (grid_axis, count_axis) = plt.subplots(
+        1, 2, figsize=(14, 6.5), gridspec_kw={"width_ratios": [3, 2]}
+    )
+    figure.suptitle(
+        "WKW refined air-control search: 286 candidates",
+        fontsize=18,
+        fontweight="bold",
+    )
+    colors = {538: "#16a34a", 540: "#2563eb", 542: "#f59e0b", None: "#dc2626"}
+    labels = {538: "VI 538 (1 frame earlier)", 540: "VI 540 (tie)",
+              542: "VI 542 (1 frame later)", None: "missed star"}
+    plotted = set()
+    for candidate in candidates:
+        match = pattern.fullmatch(candidate["candidate"])
+        if not match:
+            continue
+        point = (int(match.group(1)), int(match.group(2)))
+        if point in plotted:
+            continue
+        plotted.add(point)
+        vi = candidate.get("star_touch_vi")
+        grid_axis.scatter(*point, color=colors.get(vi, "#6b7280"), s=48,
+                          edgecolor="white", linewidth=.45)
+    for vi in (538, 540, 542, None):
+        grid_axis.scatter([], [], color=colors[vi], s=55, label=labels[vi])
+    grid_axis.scatter(94, -104, marker="*", s=310, color="#facc15",
+                      edgecolor="#111827", linewidth=1.2, zorder=5,
+                      label="verified best (94, -104)")
+    grid_axis.set_xlabel("Analog stick X")
+    grid_axis.set_ylabel("Analog stick Y")
+    grid_axis.set_title("Tested stick settings, samples 149–201")
+    grid_axis.legend(
+        loc="upper center", bbox_to_anchor=(.5, -.13), ncol=2, fontsize=9,
+    )
+
+    buckets = [538, 540, 542, None]
+    counts = [sum(c.get("star_touch_vi") == vi for c in candidates) for vi in buckets]
+    bars = count_axis.bar(
+        ["VI 538", "VI 540", "VI 542", "Miss"], counts,
+        color=[colors[vi] for vi in buckets],
+    )
+    count_axis.bar_label(bars, padding=3, fontweight="bold")
+    count_axis.set_ylabel("Candidate runs")
+    count_axis.set_title("Outcome distribution")
+    count_axis.text(
+        .5, .9,
+        "18 of the VI 538 routes\nalso exit at baseline VI 546",
+        transform=count_axis.transAxes, ha="center", va="top",
+        color="#166534", fontsize=12, fontweight="bold",
+    )
+    figure.text(
+        .5, .015,
+        "No tested setting reached VI 536. The verified result saves one 30 Hz game update (≈33 ms) at star touch.",
+        ha="center", color="#374151", fontsize=10,
+    )
+    figure.tight_layout(rect=(0, .14, 1, .93))
+    figure.savefig(output / "results.png", dpi=180, bbox_inches="tight")
+    plt.close(figure)
+
+    figure, axis = plt.subplots(figsize=(13, 6.5))
+    axis.set_xlim(0, 13)
+    axis.set_ylim(0, 7)
+    axis.axis("off")
+    figure.patch.set_facecolor("#07121f")
+    axis.set_facecolor("#07121f")
+    axis.text(.4, 6.55, "VERIFIED EMULATOR RESULT", color="#86efac", fontsize=11,
+              fontweight="bold")
+    axis.text(.4, 6.08, "Earlier star touch, with the landing penalty removed",
+              color="white", fontsize=20, fontweight="bold")
+
+    def card(x: float, title: str, data: dict, accent: str) -> None:
+        axis.add_patch(FancyBboxPatch(
+            (x, 1.2), 5.85, 4.25, boxstyle="round,pad=0.16,rounding_size=.12",
+            facecolor="#132033", edgecolor=accent, linewidth=2,
+        ))
+        axis.text(x + .3, 5.0, title, color=accent, fontsize=16, fontweight="bold")
+        rows = [
+            ("Stick (149–201)", title.split("·")[-1].strip()),
+            ("Star touch", f"sample {data['star_touch_sample']}  ·  VI {data['star_touch_vi']}"),
+            ("Grounded exit", f"sample {data['star_exit_sample']}  ·  VI {data['star_exit_vi']}"),
+            ("Parity hash", data["parity_hash"]),
+        ]
+        y = 4.35
+        for label, value in rows:
+            axis.text(x + .3, y, label.upper(), color="#94a3b8", fontsize=9)
+            axis.text(x + 2.25, y, value, color="white", fontsize=11,
+                      fontfamily="monospace")
+            y -= .83
+
+    card(.4, "Baseline · (98, −128)", baseline, "#60a5fa")
+    card(6.75, "Candidate · (94, −104)", best, "#4ade80")
+    axis.text(
+        .4, .58,
+        "Net finding: star touch −2 VI / −1 input sample  •  grounded exit unchanged  •  verified 3/3 identical",
+        color="#e2e8f0", fontsize=11.5, fontweight="bold",
+    )
+    figure.savefig(output / "telemetry-snapshot.png", dpi=180, bbox_inches="tight",
+                   facecolor=figure.get_facecolor())
+    plt.close(figure)
+    print(output / "results.png")
+    print(output / "telemetry-snapshot.png")
+
+
 def main() -> int:
     for source, destination, title, label_key in EXPERIMENTS:
         plot_experiment(source, destination, title, label_key)
     plot_next_search()
+    plot_touch_search()
     return 0
 
 

@@ -8,20 +8,21 @@ It is a laboratory for tool-assisted speedrunning: the game and ROM are not
 modified, and every promising emulator result still needs verification on a
 real Nintendo 64.
 
-The latest automated experiment tested **73 ideas** on the Wall Kicks Will Work
-star. Eight small analog-stick changes made Mario touch the star **one game
-update earlier** (input sample 224 instead of 225; VI 538 instead of 540). The
-most conservative change, stick X `98 -> 100` during samples 149-201, reproduced
-identically in three extra runs. It is promising, not yet a finished record:
-Mario exits the star sequence one update later, so the next search must keep the
-earlier touch while improving the landing.
+The Wall Kicks Will Work search has now tested **465 automated candidates**.
+The best setting changes the stick from `(98, -128)` to `(94, -104)` during
+samples 149-201. Mario touches the star **one game update earlier**—sample 224 /
+VI 538 instead of sample 225 / VI 540—while still reaching the grounded exit at
+baseline VI 546. Three verification replays were identical. This is a potential
+**one-frame / roughly 33 ms IL save**, pending real-console verification.
 
-![Automated WKW candidate search](experiments/wall_kicks_next_search/results.png)
+![Refined WKW candidate search](experiments/wall_kicks_touch_search/results.png)
 
-![Baseline and best-candidate telemetry](experiments/wall_kicks_next_search/telemetry-snapshot.png)
+![Baseline and verified candidate telemetry](experiments/wall_kicks_touch_search/telemetry-snapshot.png)
 
-Full results: [experiment report](experiments/wall_kicks_next_search/README.md) ·
-[machine-readable data](experiments/wall_kicks_next_search/results.json) ·
+▶ [Watch the verified H.264/AAC gameplay render](experiments/wall_kicks_touch_search/wkw-speedup-x94-y-104.mp4)
+
+Full results: [refined experiment report](experiments/wall_kicks_touch_search/README.md) ·
+[machine-readable data](experiments/wall_kicks_touch_search/results.json) ·
 [research interpretation](notes/research/wall-kicks-speedup-experiment.md)
 
 A local research workspace for **tool-assisted speedruns (TAS)** of *Super Mario 64*: community-standard emulator and diagnostics, published movies, historical IL archives, **n64decomp** source, and study notes from **pannenkoek2012**, **Bismuth**, and **Kaze Emanuar**.

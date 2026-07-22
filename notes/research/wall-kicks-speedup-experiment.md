@@ -2,19 +2,21 @@
 
 ## Latest outcome
 
-An expanded 73-candidate search found eight deterministic **star-touch**
-improvements. The best conservative seed changes stick X from 98 to 100 over
-samples 149-201. It touches the star at sample 224 / VI 538 versus baseline
-sample 225 / VI 540, and repeated identically three times.
+Across 465 automated candidates, the best verified setting changes stick input
+from `(98, -128)` to `(94, -104)` over samples 149-201. It touches the star at
+sample 224 / VI 538 versus baseline sample 225 / VI 540, while both routes reach
+grounded `ACT_STAR_DANCE_EXIT` at sample 228 / VI 546. Three verification runs
+were identical (`ce4ac67839bde3b9`).
 
-It is not yet an end-to-end improvement: the candidate reaches grounded
-`ACT_STAR_DANCE_EXIT` at VI 548, two VIs later than the baseline's VI 546.
-The next search should optimize the landing while retaining the earlier touch.
+This is an emulator-positive one-game-update improvement at star touch: two VIs,
+or approximately 33 ms. It still requires real-N64 verification.
 
-![Expanded search](../../experiments/wall_kicks_next_search/results.png)
+![Refined search](../../experiments/wall_kicks_touch_search/results.png)
+
+[Gameplay MP4](../../experiments/wall_kicks_touch_search/wkw-speedup-x94-y-104.mp4)
 
 Detailed data and the full idea list are in the
-[expanded experiment report](../../experiments/wall_kicks_next_search/README.md).
+[refined experiment report](../../experiments/wall_kicks_touch_search/README.md).
 
 ## Earlier bounded-search outcome
 
@@ -80,12 +82,12 @@ values have some tolerance, but changing them does not move the completion VI.
 Simple deletion or one-sample retiming is therefore not a productive speedup
 path in this tested interval.
 
-That proposed analog sweep produced the earlier-touch seed described above.
-The strongest follow-up is a two-phase trajectory sweep: preserve the successful
-air control long enough to touch at VI 538, then counter-steer so Mario reaches
-the grounded exit no later than VI 546. Any emulator-positive result must still
-pass the repository's console-first verification before being claimed as a
-finished TAS improvement.
+The initial analog sweep produced an earlier-touch seed with a VI 548 landing.
+An 86-candidate recovery search could not remove that penalty, but the subsequent
+286-setting coarse/fine grid found 18 routes that touch at VI 538 and exit at VI
+546. No route reached VI 536. The highest-value next step is therefore real-N64
+verification, followed by a more structural jump-kick-route search if a second
+frame is pursued.
 
 ## Reproduce
 
@@ -96,6 +98,9 @@ python tools\research\speedup_search.py
 python tools\research\speedup_retime.py
 python tools\research\wkw_next_search.py --stages route textbox air final
 python tools\research\wkw_next_search.py --stages verify --verify-runs 3
+python tools\research\wkw_landing_search.py
+python tools\research\wkw_touch_search.py
+python tools\research\wkw_touch_search.py --refine-only
 python tools\research\plot_speedup_results.py
 ```
 
